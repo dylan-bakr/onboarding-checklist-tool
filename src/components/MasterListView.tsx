@@ -239,9 +239,9 @@ export default function MasterListView() {
                 </td>
                 <td className="px-3 py-2">
                   <span
-                    className={`px-2 py-0.5 rounded-full text-xs font-medium ${timingColor(task.accountExecutiveRole2)}`}
+                    className={`px-2 py-0.5 rounded-full text-xs font-medium ${timingColor(task.softwareDeveloper)}`}
                   >
-                    {task.accountExecutiveRole2}
+                    {task.softwareDeveloper}
                   </span>
                 </td>
                 <td className="px-3 py-2">

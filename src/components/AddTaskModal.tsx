@@ -15,7 +15,7 @@ export default function AddTaskModal({ onClose }: Props) {
     lastUpdated: '',
     lastUpdatedBy: '',
     defaultTiming: 'Week 1',
-    accountExecutiveRole2: 'Week 1',
+    softwareDeveloper: 'Week 1',
     actuarialAnalyst: 'Week 1',
   })
   const [error, setError] = useState('')
@@ -99,8 +99,8 @@ export default function AddTaskModal({ onClose }: Props) {
               <label className={labelClass}>Acct Exec</label>
               <select
                 className={inputClass}
-                value={form.accountExecutiveRole2}
-                onChange={(e) => setForm({ ...form, accountExecutiveRole2: e.target.value })}
+                value={form.softwareDeveloper}
+                onChange={(e) => setForm({ ...form, softwareDeveloper: e.target.value })}
               >
                 {TIMING_OPTIONS.map((t) => (
                   <option key={t} value={t}>

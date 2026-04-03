@@ -50,7 +50,7 @@ function getDefaultTimingForPathway(task: MasterTask, pathwayJobCode: string): s
   const roleColumn = ROLE_PATHWAYS[pathwayJobCode]
   if (!roleColumn) return task.defaultTiming
   if (roleColumn === 'Actuarial Analyst') return task.actuarialAnalyst
-  if (roleColumn === 'Account Executive Role2') return task.accountExecutiveRole2
+  if (roleColumn === 'Account Executive Role2') return task.softwareDeveloper
   return task.defaultTiming
 }
 
@@ -166,6 +166,6 @@ export const useAppStore = create<AppState>()(
 export function getTimingColumnKey(pathwayJobCode: string): TimingKey {
   const roleColumn = ROLE_PATHWAYS[pathwayJobCode]
   if (roleColumn === 'Actuarial Analyst') return 'actuarialAnalyst'
-  if (roleColumn === 'Account Executive Role2') return 'accountExecutiveRole2'
+  if (roleColumn === 'Account Executive Role2') return 'softwareDeveloper'
   return 'defaultTiming'
 }

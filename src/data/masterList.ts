@@ -6,7 +6,7 @@ export interface MasterTask {
   lastUpdated: string
   lastUpdatedBy: string
   defaultTiming: string
-  accountExecutiveRole2: string
+  softwareDeveloper: string
   actuarialAnalyst: string
 }
 
@@ -14,7 +14,7 @@ export const TIMING_OPTIONS = ['Day 1', 'Week 1', '30 Days', '60 Days', 'Exclude
 
 export const ROLE_PATHWAYS: Record<string, string> = {
   ACTU0009: 'Actuarial Analyst',
-  SOFT0009: 'Account Executive Role2',
+  SOFT0009: 'Software Developer',
 }
 
 export const ROLES = [
@@ -62,7 +62,7 @@ export const MASTER_TASKS: MasterTask[] = [
     lastUpdated: '',
     lastUpdatedBy: '',
     defaultTiming: 'Day 1',
-    accountExecutiveRole2: 'Day 1',
+    softwareDeveloper: 'Day 1',
     actuarialAnalyst: 'Day 1',
   },
   {
@@ -73,7 +73,7 @@ export const MASTER_TASKS: MasterTask[] = [
     lastUpdated: '',
     lastUpdatedBy: '',
     defaultTiming: 'Day 1',
-    accountExecutiveRole2: 'Day 1',
+    softwareDeveloper: 'Day 1',
     actuarialAnalyst: 'Day 1',
   },
   {
@@ -84,7 +84,7 @@ export const MASTER_TASKS: MasterTask[] = [
     lastUpdated: '',
     lastUpdatedBy: '',
     defaultTiming: 'Day 1',
-    accountExecutiveRole2: 'Day 1',
+    softwareDeveloper: 'Day 1',
     actuarialAnalyst: 'Day 1',
   },
   {
@@ -95,7 +95,7 @@ export const MASTER_TASKS: MasterTask[] = [
     lastUpdated: '',
     lastUpdatedBy: '',
     defaultTiming: 'Day 1',
-    accountExecutiveRole2: 'Day 1',
+    softwareDeveloper: 'Day 1',
     actuarialAnalyst: 'Day 1',
   },
   {
@@ -106,7 +106,7 @@ export const MASTER_TASKS: MasterTask[] = [
     lastUpdated: '',
     lastUpdatedBy: '',
     defaultTiming: 'Day 1',
-    accountExecutiveRole2: 'Day 1',
+    softwareDeveloper: 'Day 1',
     actuarialAnalyst: 'Day 1',
   },
   {
@@ -117,7 +117,7 @@ export const MASTER_TASKS: MasterTask[] = [
     lastUpdated: '',
     lastUpdatedBy: '',
     defaultTiming: 'Week 1',
-    accountExecutiveRole2: 'Week 1',
+    softwareDeveloper: 'Week 1',
     actuarialAnalyst: 'Week 1',
   },
   {
@@ -128,7 +128,7 @@ export const MASTER_TASKS: MasterTask[] = [
     lastUpdated: '',
     lastUpdatedBy: '',
     defaultTiming: 'Day 1',
-    accountExecutiveRole2: 'Day 1',
+    softwareDeveloper: 'Day 1',
     actuarialAnalyst: 'Day 1',
   },
   {
@@ -139,7 +139,7 @@ export const MASTER_TASKS: MasterTask[] = [
     lastUpdated: '',
     lastUpdatedBy: '',
     defaultTiming: '30 Days',
-    accountExecutiveRole2: '30 Days',
+    softwareDeveloper: '30 Days',
     actuarialAnalyst: '30 Days',
   },
   {
@@ -150,7 +150,7 @@ export const MASTER_TASKS: MasterTask[] = [
     lastUpdated: '',
     lastUpdatedBy: '',
     defaultTiming: 'Week 1',
-    accountExecutiveRole2: 'Week 1',
+    softwareDeveloper: 'Week 1',
     actuarialAnalyst: 'Week 1',
   },
   {
@@ -161,7 +161,7 @@ export const MASTER_TASKS: MasterTask[] = [
     lastUpdated: '',
     lastUpdatedBy: '',
     defaultTiming: 'Week 1',
-    accountExecutiveRole2: 'Week 1',
+    softwareDeveloper: 'Week 1',
     actuarialAnalyst: 'Week 1',
   },
   {
@@ -172,7 +172,7 @@ export const MASTER_TASKS: MasterTask[] = [
     lastUpdated: '',
     lastUpdatedBy: '',
     defaultTiming: 'Week 1',
-    accountExecutiveRole2: 'Week 1',
+    softwareDeveloper: 'Week 1',
     actuarialAnalyst: 'Week 1',
   },
   {
@@ -183,7 +183,7 @@ export const MASTER_TASKS: MasterTask[] = [
     lastUpdated: '',
     lastUpdatedBy: '',
     defaultTiming: 'Week 1',
-    accountExecutiveRole2: 'Week 1',
+    softwareDeveloper: 'Week 1',
     actuarialAnalyst: 'Week 1',
   },
   {
@@ -194,7 +194,7 @@ export const MASTER_TASKS: MasterTask[] = [
     lastUpdated: '',
     lastUpdatedBy: '',
     defaultTiming: 'Week 1',
-    accountExecutiveRole2: 'Week 1',
+    softwareDeveloper: 'Week 1',
     actuarialAnalyst: 'Week 1',
   },
   {
@@ -205,7 +205,7 @@ export const MASTER_TASKS: MasterTask[] = [
     lastUpdated: '',
     lastUpdatedBy: '',
     defaultTiming: '30 Days',
-    accountExecutiveRole2: '30 Days',
+    softwareDeveloper: '30 Days',
     actuarialAnalyst: '30 Days',
   },
   {
@@ -216,7 +216,7 @@ export const MASTER_TASKS: MasterTask[] = [
     lastUpdated: '',
     lastUpdatedBy: '',
     defaultTiming: 'Week 1',
-    accountExecutiveRole2: 'Exclude',
+    softwareDeveloper: 'Exclude',
     actuarialAnalyst: 'Week 1',
   },
   {
@@ -227,7 +227,7 @@ export const MASTER_TASKS: MasterTask[] = [
     lastUpdated: '',
     lastUpdatedBy: 'Matt Berman',
     defaultTiming: 'Week 1',
-    accountExecutiveRole2: 'Week 1',
+    softwareDeveloper: 'Week 1',
     actuarialAnalyst: 'Week 1',
   },
   {
@@ -238,7 +238,7 @@ export const MASTER_TASKS: MasterTask[] = [
     lastUpdated: '',
     lastUpdatedBy: '',
     defaultTiming: '30 Days',
-    accountExecutiveRole2: 'Exclude',
+    softwareDeveloper: 'Exclude',
     actuarialAnalyst: '30 Days',
   },
   {
@@ -249,7 +249,7 @@ export const MASTER_TASKS: MasterTask[] = [
     lastUpdated: '',
     lastUpdatedBy: '',
     defaultTiming: '60 Days',
-    accountExecutiveRole2: 'Exclude',
+    softwareDeveloper: 'Exclude',
     actuarialAnalyst: '60 Days',
   },
   {
@@ -260,7 +260,7 @@ export const MASTER_TASKS: MasterTask[] = [
     lastUpdated: '',
     lastUpdatedBy: '',
     defaultTiming: '60 Days',
-    accountExecutiveRole2: '60 Days',
+    softwareDeveloper: '60 Days',
     actuarialAnalyst: '60 Days',
   },
   {
@@ -271,7 +271,7 @@ export const MASTER_TASKS: MasterTask[] = [
     lastUpdated: '',
     lastUpdatedBy: '',
     defaultTiming: 'Week 1',
-    accountExecutiveRole2: 'Week 1',
+    softwareDeveloper: 'Week 1',
     actuarialAnalyst: 'Week 1',
   },
   {
@@ -282,7 +282,7 @@ export const MASTER_TASKS: MasterTask[] = [
     lastUpdated: '',
     lastUpdatedBy: '',
     defaultTiming: '60 Days',
-    accountExecutiveRole2: '60 Days',
+    softwareDeveloper: '60 Days',
     actuarialAnalyst: '60 Days',
   },
   {
@@ -293,7 +293,7 @@ export const MASTER_TASKS: MasterTask[] = [
     lastUpdated: '',
     lastUpdatedBy: '',
     defaultTiming: '60 Days',
-    accountExecutiveRole2: '60 Days',
+    softwareDeveloper: '60 Days',
     actuarialAnalyst: '60 Days',
   },
   {
@@ -304,7 +304,7 @@ export const MASTER_TASKS: MasterTask[] = [
     lastUpdated: '',
     lastUpdatedBy: '',
     defaultTiming: '30 Days',
-    accountExecutiveRole2: '30 Days',
+    softwareDeveloper: '30 Days',
     actuarialAnalyst: '30 Days',
   },
   {
@@ -315,7 +315,7 @@ export const MASTER_TASKS: MasterTask[] = [
     lastUpdated: '',
     lastUpdatedBy: '',
     defaultTiming: '30 Days',
-    accountExecutiveRole2: '30 Days',
+    softwareDeveloper: '30 Days',
     actuarialAnalyst: '30 Days',
   },
   {
@@ -326,7 +326,7 @@ export const MASTER_TASKS: MasterTask[] = [
     lastUpdated: '',
     lastUpdatedBy: '',
     defaultTiming: '30 Days',
-    accountExecutiveRole2: 'Exclude',
+    softwareDeveloper: 'Exclude',
     actuarialAnalyst: '30 Days',
   },
   {
@@ -337,7 +337,7 @@ export const MASTER_TASKS: MasterTask[] = [
     lastUpdated: '',
     lastUpdatedBy: '',
     defaultTiming: '60 Days',
-    accountExecutiveRole2: 'Exclude',
+    softwareDeveloper: 'Exclude',
     actuarialAnalyst: 'Exclude',
   },
   {
@@ -348,7 +348,7 @@ export const MASTER_TASKS: MasterTask[] = [
     lastUpdated: '',
     lastUpdatedBy: '',
     defaultTiming: '30 Days',
-    accountExecutiveRole2: 'Exclude',
+    softwareDeveloper: 'Exclude',
     actuarialAnalyst: 'Exclude',
   },
   {
@@ -359,7 +359,7 @@ export const MASTER_TASKS: MasterTask[] = [
     lastUpdated: '',
     lastUpdatedBy: '',
     defaultTiming: 'Day 1',
-    accountExecutiveRole2: 'Day 1',
+    softwareDeveloper: 'Day 1',
     actuarialAnalyst: 'Day 1',
   },
   {
@@ -370,7 +370,7 @@ export const MASTER_TASKS: MasterTask[] = [
     lastUpdated: '',
     lastUpdatedBy: '',
     defaultTiming: 'Week 1',
-    accountExecutiveRole2: 'Week 1',
+    softwareDeveloper: 'Week 1',
     actuarialAnalyst: 'Week 1',
   },
   {
@@ -381,7 +381,7 @@ export const MASTER_TASKS: MasterTask[] = [
     lastUpdated: '',
     lastUpdatedBy: '',
     defaultTiming: 'Week 1',
-    accountExecutiveRole2: 'Week 1',
+    softwareDeveloper: 'Week 1',
     actuarialAnalyst: 'Exclude',
   },
   {
@@ -392,7 +392,7 @@ export const MASTER_TASKS: MasterTask[] = [
     lastUpdated: '',
     lastUpdatedBy: '',
     defaultTiming: 'Week 1',
-    accountExecutiveRole2: 'Week 1',
+    softwareDeveloper: 'Week 1',
     actuarialAnalyst: 'Week 1',
   },
   {
@@ -403,7 +403,7 @@ export const MASTER_TASKS: MasterTask[] = [
     lastUpdated: '',
     lastUpdatedBy: '',
     defaultTiming: 'Week 1',
-    accountExecutiveRole2: 'Week 1',
+    softwareDeveloper: 'Week 1',
     actuarialAnalyst: 'Week 1',
   },
   {
@@ -414,7 +414,7 @@ export const MASTER_TASKS: MasterTask[] = [
     lastUpdated: 'L&L 2025',
     lastUpdatedBy: '',
     defaultTiming: 'Week 1',
-    accountExecutiveRole2: 'Week 1',
+    softwareDeveloper: 'Week 1',
     actuarialAnalyst: 'Week 1',
   },
   {
@@ -425,7 +425,7 @@ export const MASTER_TASKS: MasterTask[] = [
     lastUpdated: '',
     lastUpdatedBy: '',
     defaultTiming: 'Week 1',
-    accountExecutiveRole2: 'Week 1',
+    softwareDeveloper: 'Week 1',
     actuarialAnalyst: 'Week 1',
   },
   {
@@ -436,7 +436,7 @@ export const MASTER_TASKS: MasterTask[] = [
     lastUpdated: '',
     lastUpdatedBy: '',
     defaultTiming: 'Week 1',
-    accountExecutiveRole2: 'Week 1',
+    softwareDeveloper: 'Week 1',
     actuarialAnalyst: 'Week 1',
   },
   {
@@ -447,7 +447,7 @@ export const MASTER_TASKS: MasterTask[] = [
     lastUpdated: '',
     lastUpdatedBy: 'Matt Berman',
     defaultTiming: 'Week 1',
-    accountExecutiveRole2: 'Week 1',
+    softwareDeveloper: 'Week 1',
     actuarialAnalyst: 'Exclude',
   },
   {
@@ -458,7 +458,7 @@ export const MASTER_TASKS: MasterTask[] = [
     lastUpdated: '',
     lastUpdatedBy: '',
     defaultTiming: 'Week 1',
-    accountExecutiveRole2: 'Week 1',
+    softwareDeveloper: 'Week 1',
     actuarialAnalyst: 'Exclude',
   },
   {
@@ -469,7 +469,7 @@ export const MASTER_TASKS: MasterTask[] = [
     lastUpdated: '',
     lastUpdatedBy: '',
     defaultTiming: '30 Days',
-    accountExecutiveRole2: '30 Days',
+    softwareDeveloper: '30 Days',
     actuarialAnalyst: 'Exclude',
   },
   {
@@ -480,7 +480,7 @@ export const MASTER_TASKS: MasterTask[] = [
     lastUpdated: '',
     lastUpdatedBy: '',
     defaultTiming: '30 Days',
-    accountExecutiveRole2: '30 Days',
+    softwareDeveloper: '30 Days',
     actuarialAnalyst: 'Exclude',
   },
   {
@@ -491,7 +491,7 @@ export const MASTER_TASKS: MasterTask[] = [
     lastUpdated: 'L&L 2025',
     lastUpdatedBy: '',
     defaultTiming: '30 Days',
-    accountExecutiveRole2: '30 Days',
+    softwareDeveloper: '30 Days',
     actuarialAnalyst: '30 Days',
   },
   {
@@ -502,7 +502,7 @@ export const MASTER_TASKS: MasterTask[] = [
     lastUpdated: '',
     lastUpdatedBy: '',
     defaultTiming: '30 Days',
-    accountExecutiveRole2: '30 Days',
+    softwareDeveloper: '30 Days',
     actuarialAnalyst: '30 Days',
   },
   {
@@ -513,7 +513,7 @@ export const MASTER_TASKS: MasterTask[] = [
     lastUpdated: '',
     lastUpdatedBy: '',
     defaultTiming: '30 Days',
-    accountExecutiveRole2: '30 Days',
+    softwareDeveloper: '30 Days',
     actuarialAnalyst: 'Exclude',
   },
   {
@@ -524,7 +524,7 @@ export const MASTER_TASKS: MasterTask[] = [
     lastUpdated: '',
     lastUpdatedBy: '',
     defaultTiming: '30 Days',
-    accountExecutiveRole2: '30 Days',
+    softwareDeveloper: '30 Days',
     actuarialAnalyst: 'Exclude',
   },
   {
@@ -535,7 +535,7 @@ export const MASTER_TASKS: MasterTask[] = [
     lastUpdated: '1/30/2025',
     lastUpdatedBy: '',
     defaultTiming: '30 Days',
-    accountExecutiveRole2: 'Exclude',
+    softwareDeveloper: 'Exclude',
     actuarialAnalyst: '30 Days',
   },
   {
@@ -546,7 +546,7 @@ export const MASTER_TASKS: MasterTask[] = [
     lastUpdated: '',
     lastUpdatedBy: '',
     defaultTiming: '30 Days',
-    accountExecutiveRole2: '30 Days',
+    softwareDeveloper: '30 Days',
     actuarialAnalyst: 'Exclude',
   },
   {
@@ -557,7 +557,7 @@ export const MASTER_TASKS: MasterTask[] = [
     lastUpdated: '',
     lastUpdatedBy: '',
     defaultTiming: '60 Days',
-    accountExecutiveRole2: '60 Days',
+    softwareDeveloper: '60 Days',
     actuarialAnalyst: 'Exclude',
   },
   {
@@ -568,7 +568,7 @@ export const MASTER_TASKS: MasterTask[] = [
     lastUpdated: '',
     lastUpdatedBy: '',
     defaultTiming: '60 Days',
-    accountExecutiveRole2: '60 Days',
+    softwareDeveloper: '60 Days',
     actuarialAnalyst: 'Exclude',
   },
   {
@@ -579,7 +579,7 @@ export const MASTER_TASKS: MasterTask[] = [
     lastUpdated: '',
     lastUpdatedBy: '',
     defaultTiming: '60 Days',
-    accountExecutiveRole2: '60 Days',
+    softwareDeveloper: '60 Days',
     actuarialAnalyst: '60 Days',
   },
   {
@@ -590,12 +590,12 @@ export const MASTER_TASKS: MasterTask[] = [
     lastUpdated: '',
     lastUpdatedBy: '',
     defaultTiming: '60 Days',
-    accountExecutiveRole2: '60 Days',
+    softwareDeveloper: '60 Days',
     actuarialAnalyst: 'Exclude',
   },
 ]
 
-export type TimingKey = 'defaultTiming' | 'accountExecutiveRole2' | 'actuarialAnalyst'
+export type TimingKey = 'defaultTiming' | 'softwareDeveloper' | 'actuarialAnalyst'
 
 export function getTimingForRole(task: MasterTask, roleColumn: TimingKey): string {
   return task[roleColumn]
