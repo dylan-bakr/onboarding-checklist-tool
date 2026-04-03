@@ -12,8 +12,6 @@ export default function AddTaskModal({ onClose }: Props) {
     task: '',
     whyGoal: '',
     whoHow: '',
-    lastUpdated: '',
-    lastUpdatedBy: '',
     defaultTiming: 'Week 1',
     softwareDeveloper: 'Week 1',
     actuarialAnalyst: 'Week 1',
@@ -122,27 +120,6 @@ export default function AddTaskModal({ onClose }: Props) {
                   </option>
                 ))}
               </select>
-            </div>
-          </div>
-
-          <div className="grid grid-cols-2 gap-3">
-            <div>
-              <label className={labelClass}>Last Updated</label>
-              <input
-                className={inputClass}
-                placeholder="e.g. 1/30/2025"
-                value={form.lastUpdated}
-                onChange={(e) => setForm({ ...form, lastUpdated: e.target.value })}
-              />
-            </div>
-            <div>
-              <label className={labelClass}>Last Updated By</label>
-              <input
-                className={inputClass}
-                placeholder="Name"
-                value={form.lastUpdatedBy}
-                onChange={(e) => setForm({ ...form, lastUpdatedBy: e.target.value })}
-              />
             </div>
           </div>
         </div>

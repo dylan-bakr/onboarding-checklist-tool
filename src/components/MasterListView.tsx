@@ -2,7 +2,6 @@ import { useState, useMemo } from 'react'
 import { useAppStore } from '../store/appStore'
 import { TIMING_OPTIONS } from '../data/masterList'
 import { exportFeedbackCSV } from '../utils/pdfExport'
-import AddTaskModal from './AddTaskModal'
 
 type SortField = 'taskNum' | 'task' | 'defaultTiming'
 type SortDir = 'asc' | 'desc'
@@ -46,7 +45,6 @@ export default function MasterListView() {
   const [sortDir, setSortDir] = useState<SortDir>('asc')
   const [filterText, setFilterText] = useState('')
   const [filterTiming, setFilterTiming] = useState('')
-  const [showAddModal, setShowAddModal] = useState(false)
   const [showFeedback, setShowFeedback] = useState(false)
 
   const rows = useMemo(() => {
@@ -98,12 +96,6 @@ export default function MasterListView() {
               Export Feedback CSV
             </button>
           )}
-          <button
-            onClick={() => setShowAddModal(true)}
-            className="px-4 py-2 text-sm bg-[#0078d4] hover:bg-[#006cbd] text-white font-semibold rounded-lg transition-colors shadow-sm"
-          >
-            + Add Task
-          </button>
         </div>
       </div>
 
@@ -199,8 +191,6 @@ export default function MasterListView() {
               </th>
               <th className="px-3 py-3 text-left font-medium">Why / Goal</th>
               <th className="px-3 py-3 text-left font-medium">Who / How</th>
-              <th className="px-3 py-3 text-left font-medium whitespace-nowrap">Last Updated</th>
-              <th className="px-3 py-3 text-left font-medium whitespace-nowrap">Last Updated By</th>
               <th
                 className="px-3 py-3 text-left font-medium cursor-pointer select-none whitespace-nowrap"
                 onClick={() => handleSort('defaultTiming')}
@@ -226,12 +216,6 @@ export default function MasterListView() {
                 <td className="px-3 py-2 font-medium text-[#222b36] max-w-xs">{task.task}</td>
                 <td className="px-3 py-2 text-gray-500 text-xs max-w-xs">{task.whyGoal}</td>
                 <td className="px-3 py-2 text-gray-500 text-xs whitespace-nowrap">{task.whoHow}</td>
-                <td className="px-3 py-2 text-gray-500 text-xs whitespace-nowrap">
-                  {task.lastUpdated}
-                </td>
-                <td className="px-3 py-2 text-gray-500 text-xs whitespace-nowrap">
-                  {task.lastUpdatedBy}
-                </td>
                 <td className="px-3 py-2">
                   <span
                     className={`px-2 py-0.5 rounded-full text-xs font-medium ${timingColor(task.defaultTiming)}`}
@@ -263,8 +247,6 @@ export default function MasterListView() {
           </div>
         )}
       </div>
-
-      {showAddModal && <AddTaskModal onClose={() => setShowAddModal(false)} />}
     </div>
   )
 }

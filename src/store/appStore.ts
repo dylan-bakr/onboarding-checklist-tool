@@ -156,9 +156,6 @@ export const useAppStore = create<AppState>()(
     }),
     {
       name: 'onboarding-app-state',
-      partialize: (state) => ({
-        tasks: state.tasks,
-      }),
     },
   ),
 )
