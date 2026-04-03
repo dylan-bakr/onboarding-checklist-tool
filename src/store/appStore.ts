@@ -137,7 +137,7 @@ export const useAppStore = create<AppState>()(
         }),
 
       exportAndRecord: () => {
-        const { employeeInfo, assignments, tasks } = get()
+        const { employeeInfo, assignments } = get()
         const today = new Date().toISOString().split('T')[0]
         const newEntries: FeedbackEntry[] = assignments
           .filter((a) => a.included)
@@ -150,7 +150,6 @@ export const useAppStore = create<AppState>()(
         const allFeedback = [...loadFeedback(), ...newEntries]
         saveFeedback(allFeedback)
         set({ feedbackDb: allFeedback })
-        void tasks
       },
 
       setIsExporting: (v) => set({ isExporting: v }),
