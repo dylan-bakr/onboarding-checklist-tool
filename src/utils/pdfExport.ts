@@ -102,15 +102,12 @@ export async function generatePDF(
 
   autoTable(doc, {
     startY: tableStartY,
-    head: [
-      ['#', 'Onboarding Task', 'Why / Goal', 'Who / How', 'Default Timing', 'Assigned Timing'],
-    ],
+    head: [['#', 'Onboarding Task', 'Why / Goal', 'Who / How', 'Assigned Timing']],
     body: includedRows.map(({ task, assignment }) => [
       task.taskNum.toString(),
       task.task,
       task.whyGoal,
       task.whoHow,
-      task.defaultTiming,
       assignment.customTiming,
     ]),
     styles: {
@@ -130,14 +127,13 @@ export async function generatePDF(
       2: { cellWidth: 170 },
       3: { cellWidth: 100 },
       4: { cellWidth: 70, halign: 'center' },
-      5: { cellWidth: 70, halign: 'center' },
     },
     alternateRowStyles: {
       fillColor: [244, 244, 244],
     },
     didDrawCell: (data) => {
-      // Color timing badges in last two columns
-      if (data.section === 'body' && (data.column.index === 4 || data.column.index === 5)) {
+      // Color timing badge in last column
+      if (data.section === 'body' && data.column.index === 4) {
         const timing = data.cell.raw as string
         const color = TIMING_COLORS[timing] ?? [180, 180, 180]
         const x = data.cell.x + 4
