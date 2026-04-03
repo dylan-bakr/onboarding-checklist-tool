@@ -1,0 +1,43 @@
+@import 'tailwindcss';
+
+:root {
+  --color-obsidian: #222b36;
+  --color-cloud: #f4f4f4;
+  --color-ocean: #0078d4;
+  --color-sky: #50bdff;
+  --color-emerald: #00a562;
+  --color-spring: #74bf60;
+  --color-gold: #ffa100;
+  --color-sun: #ffc800;
+}
+
+body {
+  font-family:
+    'Benton sans',
+    system-ui,
+    -apple-system,
+    sans-serif;
+  background-color: var(--color-cloud);
+  color: var(--color-obsidian);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

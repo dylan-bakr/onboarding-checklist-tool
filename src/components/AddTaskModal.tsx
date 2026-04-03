@@ -1,0 +1,167 @@
+import { useState } from 'react'
+import { useAppStore } from '../store/appStore'
+import { TIMING_OPTIONS } from '../data/masterList'
+
+interface Props {
+  onClose: () => void
+}
+
+export default function AddTaskModal({ onClose }: Props) {
+  const { addTask } = useAppStore()
+  const [form, setForm] = useState({
+    task: '',
+    whyGoal: '',
+    whoHow: '',
+    lastUpdated: '',
+    lastUpdatedBy: '',
+    defaultTiming: 'Week 1',
+    softwareDeveloper: 'Week 1',
+    actuarialAnalyst: 'Week 1',
+  })
+  const [error, setError] = useState('')
+
+  const handleSubmit = () => {
+    if (!form.task.trim()) {
+      setError('Task name is required.')
+      return
+    }
+    addTask(form)
+    onClose()
+  }
+
+  const inputClass =
+    'w-full px-3 py-2 rounded-lg border border-gray-200 bg-white focus:outline-none focus:ring-2 focus:ring-[#0078d4] text-sm'
+  const labelClass = 'block text-xs font-medium text-gray-600 mb-1'
+
+  return (
+    <div className="fixed inset-0 bg-black/30 backdrop-blur-sm flex items-center justify-center z-50 animate-fade-in">
+      <div className="bg-white rounded-2xl shadow-xl w-full max-w-lg mx-4 p-6">
+        <div className="flex items-center justify-between mb-4">
+          <h3 className="text-lg font-semibold text-[#222b36]">Add New Task</h3>
+          <button
+            onClick={onClose}
+            className="text-gray-400 hover:text-gray-600 text-xl leading-none"
+          >
+            ×
+          </button>
+        </div>
+
+        <div className="space-y-3">
+          <div>
+            <label className={labelClass}>
+              Task Name <span className="text-red-400">*</span>
+            </label>
+            <input
+              className={inputClass}
+              placeholder="Task name"
+              value={form.task}
+              onChange={(e) => setForm({ ...form, task: e.target.value })}
+            />
+            {error && <p className="text-xs text-red-500 mt-1">{error}</p>}
+          </div>
+
+          <div>
+            <label className={labelClass}>Why / Goal</label>
+            <input
+              className={inputClass}
+              placeholder="Purpose or goal"
+              value={form.whyGoal}
+              onChange={(e) => setForm({ ...form, whyGoal: e.target.value })}
+            />
+          </div>
+
+          <div>
+            <label className={labelClass}>Who / How</label>
+            <input
+              className={inputClass}
+              placeholder="Resource or person"
+              value={form.whoHow}
+              onChange={(e) => setForm({ ...form, whoHow: e.target.value })}
+            />
+          </div>
+
+          <div className="grid grid-cols-3 gap-3">
+            <div>
+              <label className={labelClass}>Default Timing</label>
+              <select
+                className={inputClass}
+                value={form.defaultTiming}
+                onChange={(e) => setForm({ ...form, defaultTiming: e.target.value })}
+              >
+                {TIMING_OPTIONS.map((t) => (
+                  <option key={t} value={t}>
+                    {t}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div>
+              <label className={labelClass}>Software Developer</label>
+              <select
+                className={inputClass}
+                value={form.softwareDeveloper}
+                onChange={(e) => setForm({ ...form, softwareDeveloper: e.target.value })}
+              >
+                {TIMING_OPTIONS.map((t) => (
+                  <option key={t} value={t}>
+                    {t}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div>
+              <label className={labelClass}>Act. Analyst</label>
+              <select
+                className={inputClass}
+                value={form.actuarialAnalyst}
+                onChange={(e) => setForm({ ...form, actuarialAnalyst: e.target.value })}
+              >
+                {TIMING_OPTIONS.map((t) => (
+                  <option key={t} value={t}>
+                    {t}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-2 gap-3">
+            <div>
+              <label className={labelClass}>Last Updated</label>
+              <input
+                className={inputClass}
+                placeholder="e.g. 1/30/2025"
+                value={form.lastUpdated}
+                onChange={(e) => setForm({ ...form, lastUpdated: e.target.value })}
+              />
+            </div>
+            <div>
+              <label className={labelClass}>Last Updated By</label>
+              <input
+                className={inputClass}
+                placeholder="Name"
+                value={form.lastUpdatedBy}
+                onChange={(e) => setForm({ ...form, lastUpdatedBy: e.target.value })}
+              />
+            </div>
+          </div>
+        </div>
+
+        <div className="flex gap-3 mt-6">
+          <button
+            onClick={onClose}
+            className="flex-1 py-2.5 border border-gray-200 rounded-xl text-gray-600 hover:bg-gray-50 text-sm transition-colors"
+          >
+            Cancel
+          </button>
+          <button
+            onClick={handleSubmit}
+            className="flex-1 py-2.5 bg-[#0078d4] hover:bg-[#006cbd] text-white font-semibold rounded-xl text-sm transition-colors"
+          >
+            Add Task
+          </button>
+        </div>
+      </div>
+    </div>
+  )
+}
