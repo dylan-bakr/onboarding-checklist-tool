@@ -60,7 +60,20 @@ Open in VS Code with the Dev Containers extension for a pre-configured developme
 The GitHub Actions workflow (`.github/workflows/build.yml`) triggers on `v*` tags and:
 1. Lints and type-checks the code
 2. Builds the production bundle
-3. Builds and pushes a Docker image to GitHub Container Registry
+3. Builds a Docker image and exports it as a downloadable zip artifact
+
+The zip contains a gzipped Docker image tar (`onboarding-checklist-tool-<version>.tar.gz`). Download it from the workflow run's **Artifacts** section, then load and run it:
+
+```bash
+# Inflate and load the image
+unzip onboarding-checklist-tool-v1.0.0.zip
+docker load < onboarding-checklist-tool-v1.0.0.tar.gz
+
+# Run the container
+docker run -p 3000:80 onboarding-checklist-tool:v1.0.0
+```
+
+To trigger a build:
 
 ```bash
 git tag v1.0.0
