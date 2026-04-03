@@ -208,7 +208,9 @@ export default function MasterListView() {
                 Default Timing{' '}
                 <SortIcon field="defaultTiming" sortField={sortField} sortDir={sortDir} />
               </th>
-              <th className="px-3 py-3 text-left font-medium whitespace-nowrap">Acct Exec</th>
+              <th className="px-3 py-3 text-left font-medium whitespace-nowrap">
+                Software Developer
+              </th>
               <th className="px-3 py-3 text-left font-medium whitespace-nowrap">Act. Analyst</th>
             </tr>
           </thead>

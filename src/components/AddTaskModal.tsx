@@ -96,7 +96,7 @@ export default function AddTaskModal({ onClose }: Props) {
               </select>
             </div>
             <div>
-              <label className={labelClass}>Acct Exec</label>
+              <label className={labelClass}>Software Developer</label>
               <select
                 className={inputClass}
                 value={form.softwareDeveloper}
