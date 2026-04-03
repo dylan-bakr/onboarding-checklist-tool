@@ -5,6 +5,10 @@ import type { TaskAssignment, EmployeeInfo } from '../store/appStore'
 
 const TIMING_ORDER = ['Day 1', 'Week 1', '30 Days', '60 Days', 'Exclude']
 
+const CHECKBOX_SIZE = 9
+const CHECKBOX_BORDER_COLOR: [number, number, number] = [100, 100, 100]
+const CHECKBOX_LINE_WIDTH = 0.5
+
 const TIMING_COLORS: Record<string, [number, number, number]> = {
   'Day 1': [0, 120, 212],
   'Week 1': [80, 189, 255],
@@ -103,9 +107,10 @@ export async function generatePDF(
   autoTable(doc, {
     startY: tableStartY,
     head: [
-      ['#', 'Onboarding Task', 'Why / Goal', 'Who / How', 'Default Timing', 'Assigned Timing'],
+      ['✓', '#', 'Onboarding Task', 'Why / Goal', 'Who / How', 'Default Timing', 'Assigned Timing'],
     ],
     body: includedRows.map(({ task, assignment }) => [
+      '',
       task.taskNum.toString(),
       task.task,
       task.whyGoal,
@@ -126,18 +131,27 @@ export async function generatePDF(
     },
     columnStyles: {
       0: { cellWidth: 25, halign: 'center' },
-      1: { cellWidth: 160 },
-      2: { cellWidth: 170 },
-      3: { cellWidth: 100 },
-      4: { cellWidth: 70, halign: 'center' },
-      5: { cellWidth: 70, halign: 'center' },
+      1: { cellWidth: 25, halign: 'center' },
+      2: { cellWidth: 155 },
+      3: { cellWidth: 165 },
+      4: { cellWidth: 100 },
+      5: { cellWidth: 65, halign: 'center' },
+      6: { cellWidth: 65, halign: 'center' },
     },
     alternateRowStyles: {
       fillColor: [244, 244, 244],
     },
     didDrawCell: (data) => {
+      // Draw empty checkbox in the first column of body rows
+      if (data.section === 'body' && data.column.index === 0) {
+        const x = data.cell.x + (data.cell.width - CHECKBOX_SIZE) / 2
+        const y = data.cell.y + (data.cell.height - CHECKBOX_SIZE) / 2
+        doc.setDrawColor(...CHECKBOX_BORDER_COLOR)
+        doc.setLineWidth(CHECKBOX_LINE_WIDTH)
+        doc.rect(x, y, CHECKBOX_SIZE, CHECKBOX_SIZE, 'S')
+      }
       // Color timing badges in last two columns
-      if (data.section === 'body' && (data.column.index === 4 || data.column.index === 5)) {
+      if (data.section === 'body' && (data.column.index === 5 || data.column.index === 6)) {
         const timing = data.cell.raw as string
         const color = TIMING_COLORS[timing] ?? [180, 180, 180]
         const x = data.cell.x + 4
