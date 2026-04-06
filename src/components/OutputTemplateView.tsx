@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
 import { useAppStore } from '../store/appStore'
-import { LEVEL_OPTIONS, TIMING_OPTIONS } from '../data/masterList'
+import { LEVEL_OPTIONS, ROLES, TIMING_OPTIONS } from '../data/masterList'
 import { generatePDF } from '../utils/pdfExport'
 
 const TIMING_ORDER = ['Day 1', 'Week 1', '30 Days', '60 Days', 'Exclude']
@@ -90,8 +90,9 @@ export default function OutputTemplateView() {
           </button>
           <button
             onClick={handleExport}
-            disabled={isExporting}
-            className="px-4 py-2 text-sm bg-[#0078d4] hover:bg-[#006cbd] disabled:opacity-60 text-white font-semibold rounded-lg transition-colors shadow-sm flex items-center gap-2"
+            disabled={isExporting || !employeeInfo.title}
+            title={!employeeInfo.title ? 'Select a job title before exporting' : undefined}
+            className="px-4 py-2 text-sm bg-[#0078d4] hover:bg-[#006cbd] disabled:opacity-60 disabled:cursor-not-allowed text-white font-semibold rounded-lg transition-colors shadow-sm flex items-center gap-2"
           >
             {isExporting ? (
               <>
@@ -136,11 +137,18 @@ export default function OutputTemplateView() {
         <div className="flex flex-wrap gap-6 mb-6 text-sm items-end">
           <div>
             <p className="text-xs font-medium text-gray-500 mb-1 uppercase tracking-wide">Title</p>
-            <p className="font-semibold text-[#222b36]">
-              {employeeInfo.selectedPathway
-                ? `${employeeInfo.selectedPathway}`
-                : 'Custom Onboarding'}
-            </p>
+            <select
+              value={employeeInfo.title}
+              onChange={(e) => setEmployeeInfo({ title: e.target.value })}
+              className="px-2 py-1 rounded-lg border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-[#0078d4] bg-white"
+            >
+              <option value="">— Select a role —</option>
+              {ROLES.map((r) => (
+                <option key={r} value={r}>
+                  {r}
+                </option>
+              ))}
+            </select>
           </div>
           <div>
             <p className="text-xs font-medium text-gray-500 mb-1 uppercase tracking-wide">Level</p>
@@ -197,7 +205,7 @@ export default function OutputTemplateView() {
                   <td className="px-3 py-2 font-medium text-[#222b36]">{task.task}</td>
                   <td className="px-3 py-2 text-gray-500 text-xs max-w-xs">{task.whyGoal}</td>
                   <td className="px-3 py-2 text-gray-500 text-xs whitespace-nowrap">
-                    {task.whoHow}
+                    {task.whoHow.text}
                   </td>
                   <td className="px-3 py-2">
                     <span

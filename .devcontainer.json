@@ -1,7 +1,10 @@
 {
   "name": "Onboarding Checklist Tool",
-  "image": "mcr.microsoft.com/devcontainers/javascript-node:1-22-bookworm",
+  "image": "mcr.microsoft.com/devcontainers/base:bookworm",
   "features": {
+    "ghcr.io/devcontainers/features/node:1": {
+      "version": "24"
+    },
     "ghcr.io/devcontainers/features/docker-in-docker:2": {}
   },
   "forwardPorts": [3000],
@@ -26,9 +29,7 @@
         "editor.codeActionsOnSave": {
           "source.fixAll.eslint": "explicit"
         },
-        "tailwindCSS.experimental.classRegex": [
-          ["cn\\(([^)]*)\\)", "(?:'|\"|`)([^']*)(?:'|\"|`)"]
-        ]
+        "tailwindCSS.experimental.classRegex": [["cn\\(([^)]*)\\)", "(?:'|\"|`)([^']*)(?:'|\"|`)"]]
       }
     }
   }

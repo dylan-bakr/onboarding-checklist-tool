@@ -11,9 +11,11 @@ export default function AddTaskModal({ onClose }: Props) {
   const [form, setForm] = useState({
     task: '',
     whyGoal: '',
-    whoHow: '',
+    whoHowText: '',
+    whoHowLink: '',
     timing: 'Week 1',
   })
+  const [showLinkInput, setShowLinkInput] = useState(false)
   const [error, setError] = useState('')
 
   const handleSubmit = () => {
@@ -24,7 +26,7 @@ export default function AddTaskModal({ onClose }: Props) {
     addTask({
       task: form.task,
       whyGoal: form.whyGoal,
-      whoHow: form.whoHow,
+      whoHow: { text: form.whoHowText, link: form.whoHowLink.trim() || null },
       defaultTiming: form.timing,
       softwareDeveloper: form.timing,
       actuarialAnalyst: form.timing,
@@ -74,13 +76,35 @@ export default function AddTaskModal({ onClose }: Props) {
           </div>
 
           <div>
-            <label className={labelClass}>Who / How</label>
+            <div className="flex items-center gap-1.5 mb-1">
+              <span className="text-xs font-medium text-gray-600">Who / How</span>
+              <button
+                type="button"
+                onClick={() => setShowLinkInput((v) => !v)}
+                title={showLinkInput ? 'Remove link' : 'Add link'}
+                className={`leading-none text-base transition-colors ${showLinkInput ? 'text-[#0078d4]' : 'text-gray-400 hover:text-[#0078d4]'}`}
+              >
+                🔗
+              </button>
+            </div>
+            {showLinkInput && <label className={labelClass}>text</label>}
             <input
               className={inputClass}
               placeholder="Resource or person"
-              value={form.whoHow}
-              onChange={(e) => setForm({ ...form, whoHow: e.target.value })}
+              value={form.whoHowText}
+              onChange={(e) => setForm({ ...form, whoHowText: e.target.value })}
             />
+            {showLinkInput && (
+              <div className="mt-2">
+                <label className={labelClass}>link</label>
+                <input
+                  className={inputClass}
+                  placeholder="https:// or S:\path\to\file"
+                  value={form.whoHowLink}
+                  onChange={(e) => setForm({ ...form, whoHowLink: e.target.value })}
+                />
+              </div>
+            )}
           </div>
 
           <div>
@@ -90,7 +114,7 @@ export default function AddTaskModal({ onClose }: Props) {
               value={form.timing}
               onChange={(e) => setForm({ ...form, timing: e.target.value })}
             >
-              {TIMING_OPTIONS.map((t) => (
+              {TIMING_OPTIONS.filter((t) => t !== 'Exclude').map((t) => (
                 <option key={t} value={t}>
                   {t}
                 </option>

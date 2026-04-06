@@ -92,15 +92,17 @@ export async function generatePDF(
   doc.setFont('helvetica', 'normal')
   doc.text(employeeInfo.peerGuide || '—', 470, startY + 16)
 
-  if (employeeInfo.selectedPathway) {
+  if (employeeInfo.title) {
     doc.setFont('helvetica', 'bold')
-    doc.text('Role Pathway:', 40, startY + 32)
+    doc.text('Title:', 40, startY + 32)
     doc.setFont('helvetica', 'normal')
-    doc.text(employeeInfo.selectedPathway, 160, startY + 32)
+    doc.text(employeeInfo.title, 160, startY + 32)
   }
 
   // Table
-  const tableStartY = startY + (employeeInfo.selectedPathway ? 52 : 36)
+  const tableStartY = startY + (employeeInfo.title ? 52 : 36)
+
+  const whoHowLinks = includedRows.map(({ task }) => task.whoHow.link)
 
   autoTable(doc, {
     startY: tableStartY,
@@ -110,7 +112,7 @@ export async function generatePDF(
       task.taskNum.toString(),
       task.task,
       task.whyGoal,
-      task.whoHow,
+      task.whoHow.text,
       assignment.customTiming,
     ]),
     styles: {
@@ -135,6 +137,11 @@ export async function generatePDF(
     alternateRowStyles: {
       fillColor: [244, 244, 244],
     },
+    didParseCell: (data) => {
+      if (data.section === 'body' && data.column.index === 4 && whoHowLinks[data.row.index]) {
+        data.cell.styles.textColor = accentColor
+      }
+    },
     didDrawCell: (data) => {
       // Add interactive checkbox in the first column of body rows
       if (data.section === 'body' && data.column.index === 0) {
@@ -147,6 +154,7 @@ export async function generatePDF(
         cb.width = CHECKBOX_SIZE
         cb.height = CHECKBOX_SIZE
         cb.value = 'Off'
+        cb.appearanceState = 'Off'
         doc.addField(cb)
       }
       // Color timing badge in last column
@@ -166,6 +174,16 @@ export async function generatePDF(
         )
         doc.setFontSize(7)
         doc.text(timing, x + w / 2, y + h / 2 + 2.5, { align: 'center' })
+      }
+      // Add clickable link annotation for Who / How cells
+      if (data.section === 'body' && data.column.index === 4) {
+        const rawLink = whoHowLinks[data.row.index]
+        if (rawLink) {
+          const url = rawLink.startsWith('http')
+            ? rawLink
+            : 'file:///' + rawLink.replace(/\\/g, '/')
+          doc.link(data.cell.x, data.cell.y, data.cell.width, data.cell.height, { url })
+        }
       }
     },
     margin: { left: 40, right: 40 },
