@@ -12,11 +12,7 @@ export default function AddTaskModal({ onClose }: Props) {
     task: '',
     whyGoal: '',
     whoHow: '',
-    lastUpdated: '',
-    lastUpdatedBy: '',
-    defaultTiming: 'Week 1',
-    softwareDeveloper: 'Week 1',
-    actuarialAnalyst: 'Week 1',
+    timing: 'Week 1',
   })
   const [error, setError] = useState('')
 
@@ -25,7 +21,14 @@ export default function AddTaskModal({ onClose }: Props) {
       setError('Task name is required.')
       return
     }
-    addTask(form)
+    addTask({
+      task: form.task,
+      whyGoal: form.whyGoal,
+      whoHow: form.whoHow,
+      defaultTiming: form.timing,
+      softwareDeveloper: form.timing,
+      actuarialAnalyst: form.timing,
+    })
     onClose()
   }
 
@@ -80,70 +83,19 @@ export default function AddTaskModal({ onClose }: Props) {
             />
           </div>
 
-          <div className="grid grid-cols-3 gap-3">
-            <div>
-              <label className={labelClass}>Default Timing</label>
-              <select
-                className={inputClass}
-                value={form.defaultTiming}
-                onChange={(e) => setForm({ ...form, defaultTiming: e.target.value })}
-              >
-                {TIMING_OPTIONS.map((t) => (
-                  <option key={t} value={t}>
-                    {t}
-                  </option>
-                ))}
-              </select>
-            </div>
-            <div>
-              <label className={labelClass}>Software Developer</label>
-              <select
-                className={inputClass}
-                value={form.softwareDeveloper}
-                onChange={(e) => setForm({ ...form, softwareDeveloper: e.target.value })}
-              >
-                {TIMING_OPTIONS.map((t) => (
-                  <option key={t} value={t}>
-                    {t}
-                  </option>
-                ))}
-              </select>
-            </div>
-            <div>
-              <label className={labelClass}>Act. Analyst</label>
-              <select
-                className={inputClass}
-                value={form.actuarialAnalyst}
-                onChange={(e) => setForm({ ...form, actuarialAnalyst: e.target.value })}
-              >
-                {TIMING_OPTIONS.map((t) => (
-                  <option key={t} value={t}>
-                    {t}
-                  </option>
-                ))}
-              </select>
-            </div>
-          </div>
-
-          <div className="grid grid-cols-2 gap-3">
-            <div>
-              <label className={labelClass}>Last Updated</label>
-              <input
-                className={inputClass}
-                placeholder="e.g. 1/30/2025"
-                value={form.lastUpdated}
-                onChange={(e) => setForm({ ...form, lastUpdated: e.target.value })}
-              />
-            </div>
-            <div>
-              <label className={labelClass}>Last Updated By</label>
-              <input
-                className={inputClass}
-                placeholder="Name"
-                value={form.lastUpdatedBy}
-                onChange={(e) => setForm({ ...form, lastUpdatedBy: e.target.value })}
-              />
-            </div>
+          <div>
+            <label className={labelClass}>Timing</label>
+            <select
+              className={inputClass}
+              value={form.timing}
+              onChange={(e) => setForm({ ...form, timing: e.target.value })}
+            >
+              {TIMING_OPTIONS.map((t) => (
+                <option key={t} value={t}>
+                  {t}
+                </option>
+              ))}
+            </select>
           </div>
         </div>
 
