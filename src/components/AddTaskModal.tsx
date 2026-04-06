@@ -87,7 +87,7 @@ export default function AddTaskModal({ onClose }: Props) {
                 🔗
               </button>
             </div>
-            <label className={labelClass}>text</label>
+            {showLinkInput && <label className={labelClass}>text</label>}
             <input
               className={inputClass}
               placeholder="Resource or person"
