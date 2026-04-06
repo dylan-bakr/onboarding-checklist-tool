@@ -104,7 +104,7 @@ export async function generatePDF(
 
   autoTable(doc, {
     startY: tableStartY,
-    head: [['✓', '#', 'Onboarding Task', 'Why / Goal', 'Who / How', 'Assigned Timing']],
+    head: [['Status', '#', 'Onboarding Task', 'Why / Goal', 'Who / How', 'Assigned Timing']],
     body: includedRows.map(({ task, assignment }) => [
       '',
       task.taskNum.toString(),
@@ -125,7 +125,7 @@ export async function generatePDF(
       fontSize: 8,
     },
     columnStyles: {
-      0: { cellWidth: 25, halign: 'center' },
+      0: { cellWidth: 50, halign: 'center' },
       1: { cellWidth: 25, halign: 'center' },
       2: { cellWidth: 160 },
       3: { cellWidth: 170 },
