@@ -64,16 +64,16 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
-      - name: Export image to tar and zip
+      - name: Package for Milliman Access Portal
         run: |
-          docker save onboarding-checklist-tool:${{ github.ref_name }} \
-            | gzip > onboarding-checklist-tool-${{ github.ref_name }}.tar.gz
-          zip onboarding-checklist-tool-${{ github.ref_name }}.zip \
-            onboarding-checklist-tool-${{ github.ref_name }}.tar.gz
+          mkdir -p workbench
+          docker save onboarding-checklist-tool:${{ github.ref_name }} | tar -x -C workbench
+          cd workbench
+          tar cvfz ../onboarding-checklist-tool-${{ github.ref_name }}.tar.gz *
 
       - name: Upload Docker image artifact
         uses: actions/upload-artifact@v4
         with:
           name: onboarding-checklist-tool-${{ github.ref_name }}
-          path: onboarding-checklist-tool-${{ github.ref_name }}.zip
+          path: onboarding-checklist-tool-${{ github.ref_name }}.tar.gz
           retention-days: 30
