@@ -197,7 +197,7 @@ export default function OutputTemplateView() {
                   <td className="px-3 py-2 font-medium text-[#222b36]">{task.task}</td>
                   <td className="px-3 py-2 text-gray-500 text-xs max-w-xs">{task.whyGoal}</td>
                   <td className="px-3 py-2 text-gray-500 text-xs whitespace-nowrap">
-                    {task.whoHow}
+                    {task.whoHow.text}
                   </td>
                   <td className="px-3 py-2">
                     <span

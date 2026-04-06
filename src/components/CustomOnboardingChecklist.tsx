@@ -65,7 +65,7 @@ export default function CustomOnboardingChecklist() {
         const textMatch =
           !filterText ||
           task.task.toLowerCase().includes(filterText.toLowerCase()) ||
-          task.whoHow.toLowerCase().includes(filterText.toLowerCase())
+          task.whoHow.text.toLowerCase().includes(filterText.toLowerCase())
         const timingMatch = !filterTiming || assignment.customTiming === filterTiming
         return textMatch && timingMatch
       })
@@ -249,7 +249,9 @@ export default function CustomOnboardingChecklist() {
                 <td className="px-3 py-2 text-gray-400 font-mono text-xs">{task.taskNum}</td>
                 <td className="px-3 py-2 font-medium text-[#222b36] max-w-xs">{task.task}</td>
                 <td className="px-3 py-2 text-gray-500 max-w-xs text-xs">{task.whyGoal}</td>
-                <td className="px-3 py-2 text-gray-500 text-xs whitespace-nowrap">{task.whoHow}</td>
+                <td className="px-3 py-2 text-gray-500 text-xs whitespace-nowrap">
+                  {task.whoHow.text}
+                </td>
                 <td className="px-3 py-2">
                   <span
                     className={`px-2 py-0.5 rounded-full text-xs font-medium ${timingColor(task.defaultTiming)}`}
