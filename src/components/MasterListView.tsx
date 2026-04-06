@@ -63,7 +63,8 @@ export default function MasterListView() {
         let cmp = 0
         if (sortField === 'taskNum') cmp = a.taskNum - b.taskNum
         else if (sortField === 'task') cmp = a.task.localeCompare(b.task)
-        else if (sortField === 'defaultTiming') cmp = a.defaultTiming.localeCompare(b.defaultTiming)
+        else if (sortField === 'defaultTiming')
+          cmp = TIMING_OPTIONS.indexOf(a.defaultTiming) - TIMING_OPTIONS.indexOf(b.defaultTiming)
         return sortDir === 'asc' ? cmp : -cmp
       })
   }, [masterTasks, filterText, filterTiming, sortField, sortDir])
