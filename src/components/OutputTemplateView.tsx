@@ -66,6 +66,7 @@ export default function OutputTemplateView() {
       await generatePDF(tasks, assignments, employeeInfo)
     } finally {
       setIsExporting(false)
+      document.location.reload()
     }
   }
 
