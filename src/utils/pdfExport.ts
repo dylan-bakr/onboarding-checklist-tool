@@ -1,9 +1,11 @@
-import jsPDF from 'jspdf'
+import jsPDF, { AcroFormCheckBox } from 'jspdf'
 import autoTable from 'jspdf-autotable'
 import type { MasterTask } from '../data/masterList'
 import type { TaskAssignment, EmployeeInfo } from '../store/appStore'
 
 const TIMING_ORDER = ['Day 1', 'Week 1', '30 Days', '60 Days', 'Exclude']
+
+const CHECKBOX_SIZE = 9
 
 const TIMING_COLORS: Record<string, [number, number, number]> = {
   'Day 1': [0, 120, 212],
@@ -102,8 +104,9 @@ export async function generatePDF(
 
   autoTable(doc, {
     startY: tableStartY,
-    head: [['#', 'Onboarding Task', 'Why / Goal', 'Who / How', 'Assigned Timing']],
+    head: [['Status', '#', 'Onboarding Task', 'Why / Goal', 'Who / How', 'Assigned Timing']],
     body: includedRows.map(({ task, assignment }) => [
+      '',
       task.taskNum.toString(),
       task.task,
       task.whyGoal,
@@ -122,18 +125,32 @@ export async function generatePDF(
       fontSize: 8,
     },
     columnStyles: {
-      0: { cellWidth: 25, halign: 'center' },
-      1: { cellWidth: 160 },
-      2: { cellWidth: 170 },
-      3: { cellWidth: 100 },
-      4: { cellWidth: 70, halign: 'center' },
+      0: { cellWidth: 50, halign: 'center' },
+      1: { cellWidth: 25, halign: 'center' },
+      2: { cellWidth: 160 },
+      3: { cellWidth: 170 },
+      4: { cellWidth: 100 },
+      5: { cellWidth: 70, halign: 'center' },
     },
     alternateRowStyles: {
       fillColor: [244, 244, 244],
     },
     didDrawCell: (data) => {
+      // Add interactive checkbox in the first column of body rows
+      if (data.section === 'body' && data.column.index === 0) {
+        const x = data.cell.x + (data.cell.width - CHECKBOX_SIZE) / 2
+        const y = data.cell.y + (data.cell.height - CHECKBOX_SIZE) / 2
+        const cb = new AcroFormCheckBox()
+        cb.fieldName = `task_done_${data.row.index}`
+        cb.x = x
+        cb.y = y
+        cb.width = CHECKBOX_SIZE
+        cb.height = CHECKBOX_SIZE
+        cb.value = 'Off'
+        doc.addField(cb)
+      }
       // Color timing badge in last column
-      if (data.section === 'body' && data.column.index === 4) {
+      if (data.section === 'body' && data.column.index === 5) {
         const timing = data.cell.raw as string
         const color = TIMING_COLORS[timing] ?? [180, 180, 180]
         const x = data.cell.x + 4
