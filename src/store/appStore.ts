@@ -11,6 +11,7 @@ export interface EmployeeInfo {
   supervisor: string
   peerGuide: string
   selectedPathway: string // job code like ACTU0009
+  title: string
   level: string
 }
 
@@ -77,6 +78,7 @@ export const useAppStore = create<AppState>()((set, get) => ({
     supervisor: '',
     peerGuide: '',
     selectedPathway: '',
+    title: '',
     level: '1i',
   },
   tasks: MASTER_TASKS,

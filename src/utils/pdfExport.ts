@@ -92,15 +92,15 @@ export async function generatePDF(
   doc.setFont('helvetica', 'normal')
   doc.text(employeeInfo.peerGuide || '—', 470, startY + 16)
 
-  if (employeeInfo.selectedPathway) {
+  if (employeeInfo.title) {
     doc.setFont('helvetica', 'bold')
-    doc.text('Role Pathway:', 40, startY + 32)
+    doc.text('Title:', 40, startY + 32)
     doc.setFont('helvetica', 'normal')
-    doc.text(employeeInfo.selectedPathway, 160, startY + 32)
+    doc.text(employeeInfo.title, 160, startY + 32)
   }
 
   // Table
-  const tableStartY = startY + (employeeInfo.selectedPathway ? 52 : 36)
+  const tableStartY = startY + (employeeInfo.title ? 52 : 36)
 
   const whoHowLinks = includedRows.map(({ task }) => task.whoHow.link)
 
