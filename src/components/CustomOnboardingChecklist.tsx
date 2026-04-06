@@ -99,6 +99,7 @@ export default function CustomOnboardingChecklist() {
       setTimeout(() => setExportSuccess(false), 3000)
     } finally {
       setIsExporting(false)
+      document.location.reload()
     }
   }
 

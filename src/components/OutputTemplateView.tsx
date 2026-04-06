@@ -66,6 +66,7 @@ export default function OutputTemplateView() {
       await generatePDF(tasks, assignments, employeeInfo)
     } finally {
       setIsExporting(false)
+      document.location.reload()
     }
   }
 
@@ -181,10 +182,6 @@ export default function OutputTemplateView() {
                 <th className="px-3 py-3 text-left font-medium">Onboarding Task</th>
                 <th className="px-3 py-3 text-left font-medium">Why / Goal</th>
                 <th className="px-3 py-3 text-left font-medium">Who / How</th>
-                <th className="px-3 py-3 text-left font-medium whitespace-nowrap">Last Updated</th>
-                <th className="px-3 py-3 text-left font-medium whitespace-nowrap">
-                  Last Updated By
-                </th>
                 <th className="px-3 py-3 text-left font-medium whitespace-nowrap">
                   Default Timing
                 </th>
@@ -204,12 +201,6 @@ export default function OutputTemplateView() {
                   <td className="px-3 py-2 text-gray-500 text-xs max-w-xs">{task.whyGoal}</td>
                   <td className="px-3 py-2 text-gray-500 text-xs whitespace-nowrap">
                     {task.whoHow}
-                  </td>
-                  <td className="px-3 py-2 text-gray-500 text-xs whitespace-nowrap">
-                    {task.lastUpdated}
-                  </td>
-                  <td className="px-3 py-2 text-gray-500 text-xs whitespace-nowrap">
-                    {task.lastUpdatedBy}
                   </td>
                   <td className="px-3 py-2">
                     <span
