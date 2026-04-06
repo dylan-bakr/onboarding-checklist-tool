@@ -90,7 +90,7 @@ export default function AddTaskModal({ onClose }: Props) {
               value={form.timing}
               onChange={(e) => setForm({ ...form, timing: e.target.value })}
             >
-              {TIMING_OPTIONS.map((t) => (
+              {TIMING_OPTIONS.filter((t) => t !== 'Exclude').map((t) => (
                 <option key={t} value={t}>
                   {t}
                 </option>
