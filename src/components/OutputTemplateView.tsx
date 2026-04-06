@@ -183,9 +183,6 @@ export default function OutputTemplateView() {
                 <th className="px-3 py-3 text-left font-medium">Why / Goal</th>
                 <th className="px-3 py-3 text-left font-medium">Who / How</th>
                 <th className="px-3 py-3 text-left font-medium whitespace-nowrap">
-                  Default Timing
-                </th>
-                <th className="px-3 py-3 text-left font-medium whitespace-nowrap">
                   Assigned Timing
                 </th>
               </tr>
@@ -201,13 +198,6 @@ export default function OutputTemplateView() {
                   <td className="px-3 py-2 text-gray-500 text-xs max-w-xs">{task.whyGoal}</td>
                   <td className="px-3 py-2 text-gray-500 text-xs whitespace-nowrap">
                     {task.whoHow}
-                  </td>
-                  <td className="px-3 py-2">
-                    <span
-                      className={`px-2 py-0.5 rounded-full text-xs font-medium ${timingColor(task.defaultTiming)}`}
-                    >
-                      {task.defaultTiming}
-                    </span>
                   </td>
                   <td className="px-3 py-2">
                     <span
