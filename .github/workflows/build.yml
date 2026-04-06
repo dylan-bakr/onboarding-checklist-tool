@@ -66,8 +66,10 @@ jobs:
 
       - name: Package for Milliman Access Portal
         run: |
+          wget -q https://github.com/lework/skopeo-binary/releases/download/v1.14.4/skopeo-linux-amd64
+          chmod +x skopeo-linux-amd64
           mkdir -p workbench
-          docker save onboarding-checklist-tool:${{ github.ref_name }} | tar -x -C workbench
+          ./skopeo-linux-amd64 copy docker-daemon:onboarding-checklist-tool:${{ github.ref_name }} dir:./workbench
           cd workbench
           tar cvfz ../onboarding-checklist-tool-${{ github.ref_name }}.tar.gz *
 
