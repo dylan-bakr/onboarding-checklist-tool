@@ -47,8 +47,10 @@ export default function MasterListView() {
   const [filterTiming, setFilterTiming] = useState('')
   const [showFeedback, setShowFeedback] = useState(false)
 
+  const masterTasks = useMemo(() => tasks.filter((t) => !t.ephemeral), [tasks])
+
   const rows = useMemo(() => {
-    return tasks
+    return masterTasks
       .filter((t) => {
         const textMatch =
           !filterText ||
@@ -64,7 +66,7 @@ export default function MasterListView() {
         else if (sortField === 'defaultTiming') cmp = a.defaultTiming.localeCompare(b.defaultTiming)
         return sortDir === 'asc' ? cmp : -cmp
       })
-  }, [tasks, filterText, filterTiming, sortField, sortDir])
+  }, [masterTasks, filterText, filterTiming, sortField, sortDir])
 
   const handleSort = (field: SortField) => {
     if (sortField === field) setSortDir((d) => (d === 'asc' ? 'desc' : 'asc'))
@@ -79,7 +81,7 @@ export default function MasterListView() {
       <div className="flex flex-wrap items-center justify-between gap-3 mb-4">
         <div>
           <h2 className="text-xl font-semibold text-[#222b36]">Master Task List</h2>
-          <p className="text-sm text-gray-500">{tasks.length} total tasks</p>
+          <p className="text-sm text-gray-500">{masterTasks.length} total tasks</p>
         </div>
         <div className="flex gap-2 flex-wrap">
           <button
@@ -168,7 +170,7 @@ export default function MasterListView() {
           ))}
         </select>
         <span className="text-sm text-gray-400 self-center">
-          {rows.length} of {tasks.length}
+          {rows.length} of {masterTasks.length}
         </span>
       </div>
 

@@ -6,6 +6,7 @@ export interface MasterTask {
   defaultTiming: string
   softwareDeveloper: string
   actuarialAnalyst: string
+  ephemeral?: boolean
 }
 
 export const TIMING_OPTIONS = ['Day 1', 'Week 1', '30 Days', '60 Days', 'Exclude']

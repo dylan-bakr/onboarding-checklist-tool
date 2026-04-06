@@ -116,7 +116,7 @@ export const useAppStore = create<AppState>()((set, get) => ({
   addTask: (taskData) =>
     set((state) => {
       const maxNum = Math.max(...state.tasks.map((t) => t.taskNum), 0)
-      const newTask: MasterTask = { taskNum: maxNum + 1, ...taskData }
+      const newTask: MasterTask = { taskNum: maxNum + 1, ephemeral: true, ...taskData }
       const newAssignment: TaskAssignment = {
         taskNum: newTask.taskNum,
         customTiming: newTask.defaultTiming,
