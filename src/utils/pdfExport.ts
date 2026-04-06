@@ -147,6 +147,7 @@ export async function generatePDF(
         cb.width = CHECKBOX_SIZE
         cb.height = CHECKBOX_SIZE
         cb.value = 'Off'
+        cb.appearanceState = 'Off'
         doc.addField(cb)
       }
       // Color timing badge in last column
