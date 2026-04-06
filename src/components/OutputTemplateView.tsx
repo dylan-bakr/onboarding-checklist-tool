@@ -90,8 +90,9 @@ export default function OutputTemplateView() {
           </button>
           <button
             onClick={handleExport}
-            disabled={isExporting}
-            className="px-4 py-2 text-sm bg-[#0078d4] hover:bg-[#006cbd] disabled:opacity-60 text-white font-semibold rounded-lg transition-colors shadow-sm flex items-center gap-2"
+            disabled={isExporting || !employeeInfo.title}
+            title={!employeeInfo.title ? 'Select a job title before exporting' : undefined}
+            className="px-4 py-2 text-sm bg-[#0078d4] hover:bg-[#006cbd] disabled:opacity-60 disabled:cursor-not-allowed text-white font-semibold rounded-lg transition-colors shadow-sm flex items-center gap-2"
           >
             {isExporting ? (
               <>

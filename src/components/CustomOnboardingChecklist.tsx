@@ -1,7 +1,6 @@
 import { useState, useMemo, useRef } from 'react'
 import { useAppStore } from '../store/appStore'
 import { TIMING_OPTIONS } from '../data/masterList'
-import { generatePDF } from '../utils/pdfExport'
 import AddTaskModal from './AddTaskModal'
 
 const TIMING_ORDER = ['Day 1', 'Week 1', '30 Days', '60 Days', 'Exclude']
@@ -26,24 +25,14 @@ function SortIcon({
 }
 
 export default function CustomOnboardingChecklist() {
-  const {
-    tasks,
-    assignments,
-    updateAssignment,
-    toggleTaskIncluded,
-    setActiveTab,
-    exportAndRecord,
-    setIsExporting,
-    isExporting,
-    employeeInfo,
-  } = useAppStore()
+  const { tasks, assignments, updateAssignment, toggleTaskIncluded, setActiveTab, employeeInfo } =
+    useAppStore()
 
   const [sortField, setSortField] = useState<SortField>('customTiming')
   const [sortDir, setSortDir] = useState<SortDir>('asc')
   const [filterTiming, setFilterTiming] = useState<string>('')
   const [filterText, setFilterText] = useState<string>('')
   const [showAddModal, setShowAddModal] = useState(false)
-  const [exportSuccess, setExportSuccess] = useState(false)
   const tableRef = useRef<HTMLTableElement>(null)
 
   const assignmentMap = useMemo(
@@ -89,20 +78,6 @@ export default function CustomOnboardingChecklist() {
     }
   }
 
-  const handleExport = async () => {
-    setIsExporting(true)
-    setExportSuccess(false)
-    try {
-      exportAndRecord()
-      await generatePDF(tasks, assignments, employeeInfo)
-      setExportSuccess(true)
-      setTimeout(() => setExportSuccess(false), 3000)
-    } finally {
-      setIsExporting(false)
-      document.location.reload()
-    }
-  }
-
   const timingColor = (timing: string) => {
     switch (timing) {
       case 'Day 1':
@@ -145,22 +120,6 @@ export default function CustomOnboardingChecklist() {
             className="px-4 py-2 text-sm bg-white border border-gray-200 hover:border-gray-300 text-gray-700 font-medium rounded-lg transition-colors"
           >
             Preview Output →
-          </button>
-          <button
-            onClick={handleExport}
-            disabled={isExporting}
-            className="px-4 py-2 text-sm bg-[#0078d4] hover:bg-[#006cbd] disabled:opacity-60 text-white font-semibold rounded-lg transition-colors shadow-sm flex items-center gap-2"
-          >
-            {isExporting ? (
-              <>
-                <span className="inline-block w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                Exporting…
-              </>
-            ) : exportSuccess ? (
-              <>✓ Exported!</>
-            ) : (
-              <>Export PDF</>
-            )}
           </button>
         </div>
       </div>
