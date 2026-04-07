@@ -42,25 +42,47 @@ export default function CustomOnboardingChecklist() {
     [assignments],
   )
 
+  // Stable display order: only re-sort when sort config or filters change, not when
+  // assignment values change (prevents the table from jumping during customization).
+  const stableOrderRef = useRef<number[]>([])
+  const sortConfigRef = useRef<{
+    sortField: SortField
+    sortDir: SortDir
+    filterText: string
+    filterTiming: string
+    taskCount: number
+  } | null>(null)
+
   const rows = useMemo(() => {
-    return tasks
-      .map((task) => ({
-        task,
-        assignment: assignmentMap.get(task.taskNum) ?? {
-          taskNum: task.taskNum,
-          customTiming: task.defaultTiming,
-          included: task.defaultTiming !== 'Exclude',
-        },
-      }))
-      .filter(({ task, assignment }) => {
-        const textMatch =
-          !filterText ||
-          task.task.toLowerCase().includes(filterText.toLowerCase()) ||
-          task.whoHow.text.toLowerCase().includes(filterText.toLowerCase())
-        const timingMatch = !filterTiming || assignment.customTiming === filterTiming
-        return textMatch && timingMatch
-      })
-      .sort((a, b) => {
+    const mapped = tasks.map((task) => ({
+      task,
+      assignment: assignmentMap.get(task.taskNum) ?? {
+        taskNum: task.taskNum,
+        customTiming: task.defaultTiming,
+        included: task.defaultTiming !== 'Exclude',
+      },
+    }))
+
+    const filtered = mapped.filter(({ task, assignment }) => {
+      const textMatch =
+        !filterText ||
+        task.task.toLowerCase().includes(filterText.toLowerCase()) ||
+        task.whoHow.text.toLowerCase().includes(filterText.toLowerCase())
+      const timingMatch = !filterTiming || assignment.customTiming === filterTiming
+      return textMatch && timingMatch
+    })
+
+    const cfg = sortConfigRef.current
+    const sortConfigChanged =
+      cfg === null ||
+      cfg.sortField !== sortField ||
+      cfg.sortDir !== sortDir ||
+      cfg.filterText !== filterText ||
+      cfg.filterTiming !== filterTiming ||
+      cfg.taskCount !== tasks.length
+
+    if (sortConfigChanged) {
+      const sorted = [...filtered].sort((a, b) => {
         let cmp = 0
         if (sortField === 'taskNum') cmp = a.task.taskNum - b.task.taskNum
         else if (sortField === 'task') cmp = a.task.task.localeCompare(b.task.task)
@@ -70,6 +92,30 @@ export default function CustomOnboardingChecklist() {
             TIMING_ORDER.indexOf(b.assignment.customTiming)
         return sortDir === 'asc' ? cmp : -cmp
       })
+      stableOrderRef.current = sorted.map((r) => r.task.taskNum)
+      sortConfigRef.current = {
+        sortField,
+        sortDir,
+        filterText,
+        filterTiming,
+        taskCount: tasks.length,
+      }
+      return sorted
+    }
+
+    // Sort config hasn't changed — apply the stable order so timing edits don't
+    // cause rows to jump. Any newly added tasks (not yet in the order) go last.
+    const filteredMap = new Map(filtered.map((r) => [r.task.taskNum, r]))
+    const stableSet = new Set(stableOrderRef.current)
+    const result: typeof filtered = []
+    for (const taskNum of stableOrderRef.current) {
+      const row = filteredMap.get(taskNum)
+      if (row) result.push(row)
+    }
+    for (const row of filtered) {
+      if (!stableSet.has(row.task.taskNum)) result.push(row)
+    }
+    return result
   }, [tasks, assignmentMap, filterText, filterTiming, sortField, sortDir])
 
   const handleSort = (field: SortField) => {
