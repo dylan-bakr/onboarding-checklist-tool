@@ -4,22 +4,35 @@ A containerized web application for creating, customizing, and exporting employe
 
 ## Features
 
-- **Supervisor Interface** – Enter new employee details and select a predefined role pathway
-- **Custom Onboarding Checklist** – Customize timing assignments for 49+ onboarding tasks with filtering and sorting
+- **Supervisor Interface** – Enter new employee details and select a job title (drives timing pre-fills for defined role pathways)
+- **Custom Onboarding Checklist** – Customize timing assignments for 50 onboarding tasks with filtering and sorting; required tasks cannot be excluded
 - **Output Template** – Preview and export a formatted PDF checklist
 - **Master List** – View, filter, and add tasks to the master task database
-- **Feedback Database** – Tracks all exported selections (Date, Job Code, Task #, Timing) with CSV export
+- **Feedback Database** – Tracks all exported selections (Date, Task #, Timing) with CSV export
 - **PDF Export** – Generates a professionally formatted PDF using the Milliman color palette
 
 ## Tech Stack
 
-- **Frontend**: React 19 + TypeScript + Vite
-- **Styling**: Tailwind CSS v4
-- **State**: Zustand (with localStorage persistence)
-- **PDF**: jsPDF + jspdf-autotable
-- **Container**: Docker + Nginx
-- **Linting**: ESLint + Prettier
-- **Pre-commit**: Husky + lint-staged
+### Production
+
+| Package               | Version | Purpose                                   |
+| --------------------- | ------- | ----------------------------------------- |
+| `react` / `react-dom` | ^19.2.4 | UI framework                              |
+| `tailwindcss`         | ^4.2.2  | Utility-first CSS                         |
+| `zustand`             | ^5.0.12 | State management (localStorage-persisted) |
+| `jspdf`               | ^4.2.1  | PDF generation                            |
+| `jspdf-autotable`     | ^5.0.7  | Table rendering in PDFs                   |
+
+### Development
+
+| Package                 | Version  | Purpose                     |
+| ----------------------- | -------- | --------------------------- |
+| Node.js                 | 24       | Runtime (devcontainer & CI) |
+| `vite`                  | ^8.0.5   | Dev server & bundler        |
+| `typescript`            | ~5.9.3   | Type checking               |
+| `eslint`                | ^9.39.4  | Linting (flat config)       |
+| `prettier`              | ^3.8.1   | Code formatting             |
+| `husky` + `lint-staged` | ^9 / ^16 | Pre-commit hooks            |
 
 ## Development
 
@@ -58,6 +71,7 @@ Open in VS Code with the Dev Containers extension for a pre-configured developme
 ## CI/CD
 
 The GitHub Actions workflow (`.github/workflows/build.yml`) triggers on `v*` tags and:
+
 1. Lints and type-checks the code
 2. Builds the production bundle
 3. Builds a Docker image and exports it as a downloadable zip artifact
