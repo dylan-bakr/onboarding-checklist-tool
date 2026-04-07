@@ -104,7 +104,7 @@ export default function CustomOnboardingChecklist() {
           {employeeInfo.name && (
             <p className="text-sm text-gray-500">
               {employeeInfo.name}
-              {employeeInfo.selectedPathway ? ` · ${employeeInfo.selectedPathway}` : ''}
+              {employeeInfo.title ? ` · ${employeeInfo.title}` : ''}
             </p>
           )}
         </div>

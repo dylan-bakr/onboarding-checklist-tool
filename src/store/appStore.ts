@@ -1,16 +1,14 @@
 import { create } from 'zustand'
-import { MASTER_TASKS, ROLE_PATHWAYS } from '../data/masterList'
-import type { MasterTask, TimingKey } from '../data/masterList'
+import { MASTER_TASKS, PATHWAY_TITLES } from '../data/masterList'
+import type { MasterTask } from '../data/masterList'
 
 export type Tab = 'supervisor' | 'checklist' | 'output' | 'master'
 
 export interface EmployeeInfo {
   name: string
-  jobCode: string
   startDate: string
   supervisor: string
   peerGuide: string
-  selectedPathway: string // job code like ACTU0009
   title: string
   level: string
 }
@@ -23,7 +21,6 @@ export interface TaskAssignment {
 
 export interface FeedbackEntry {
   date: string
-  jobCode: string
   taskNum: number
   timing: string
 }
@@ -46,12 +43,10 @@ interface AppState {
   setIsExporting: (v: boolean) => void
 }
 
-function getDefaultTimingForPathway(task: MasterTask, pathwayJobCode: string): string {
-  const roleColumn = ROLE_PATHWAYS[pathwayJobCode]
-  if (!roleColumn) return task.defaultTiming
-  if (roleColumn === 'Actuarial Analyst') return task.actuarialAnalyst
-  if (roleColumn === 'Software Developer') return task.softwareDeveloper
-  return task.defaultTiming
+function getDefaultTimingForPathway(task: MasterTask, jobTitle: string): string {
+  const timingKey = PATHWAY_TITLES[jobTitle]
+  if (!timingKey) return task.defaultTiming
+  return task[timingKey]
 }
 
 const FEEDBACK_STORAGE_KEY = 'onboarding-feedback-db'
@@ -73,11 +68,9 @@ export const useAppStore = create<AppState>()((set, get) => ({
   activeTab: 'supervisor',
   employeeInfo: {
     name: '',
-    jobCode: '',
     startDate: '',
     supervisor: '',
     peerGuide: '',
-    selectedPathway: '',
     title: '',
     level: '1i',
   },
@@ -93,7 +86,7 @@ export const useAppStore = create<AppState>()((set, get) => ({
   initializeAssignments: () => {
     const { employeeInfo, tasks } = get()
     const assignments: TaskAssignment[] = tasks.map((task) => {
-      const timing = getDefaultTimingForPathway(task, employeeInfo.selectedPathway)
+      const timing = getDefaultTimingForPathway(task, employeeInfo.title)
       return {
         taskNum: task.taskNum,
         customTiming: timing,
@@ -131,13 +124,12 @@ export const useAppStore = create<AppState>()((set, get) => ({
     }),
 
   exportAndRecord: () => {
-    const { employeeInfo, assignments } = get()
+    const { assignments } = get()
     const today = new Date().toISOString().split('T')[0]
     const newEntries: FeedbackEntry[] = assignments
       .filter((a) => a.included)
       .map((a) => ({
         date: today,
-        jobCode: employeeInfo.jobCode,
         taskNum: a.taskNum,
         timing: a.customTiming,
       }))
@@ -148,10 +140,3 @@ export const useAppStore = create<AppState>()((set, get) => ({
 
   setIsExporting: (v) => set({ isExporting: v }),
 }))
-
-export function getTimingColumnKey(pathwayJobCode: string): TimingKey {
-  const roleColumn = ROLE_PATHWAYS[pathwayJobCode]
-  if (roleColumn === 'Actuarial Analyst') return 'actuarialAnalyst'
-  if (roleColumn === 'Software Developer') return 'softwareDeveloper'
-  return 'defaultTiming'
-}
