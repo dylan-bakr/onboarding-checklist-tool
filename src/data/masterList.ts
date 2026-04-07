@@ -16,9 +16,9 @@ export interface MasterTask {
 
 export const TIMING_OPTIONS = ['Day 1', 'Week 1', '30 Days', '60 Days', 'Exclude']
 
-export const ROLE_PATHWAYS: Record<string, string> = {
-  ACTU0009: 'Actuarial Analyst',
-  SOFT0009: 'Software Developer',
+export const PATHWAY_TITLES: Record<string, 'actuarialAnalyst' | 'softwareDeveloper'> = {
+  'Actuarial Analyst': 'actuarialAnalyst',
+  'Software Developer': 'softwareDeveloper',
 }
 
 export const ROLES = [

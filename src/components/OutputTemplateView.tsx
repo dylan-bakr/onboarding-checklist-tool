@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
 import { useAppStore } from '../store/appStore'
-import { LEVEL_OPTIONS, ROLES, TIMING_OPTIONS } from '../data/masterList'
+import { LEVEL_OPTIONS, TIMING_OPTIONS } from '../data/masterList'
 import { generatePDF } from '../utils/pdfExport'
 
 const TIMING_ORDER = ['Day 1', 'Week 1', '30 Days', '60 Days', 'Exclude']
@@ -90,8 +90,7 @@ export default function OutputTemplateView() {
           </button>
           <button
             onClick={handleExport}
-            disabled={isExporting || !employeeInfo.title}
-            title={!employeeInfo.title ? 'Select a job title before exporting' : undefined}
+            disabled={isExporting}
             className="px-4 py-2 text-sm bg-[#0078d4] hover:bg-[#006cbd] disabled:opacity-60 disabled:cursor-not-allowed text-white font-semibold rounded-lg transition-colors shadow-sm flex items-center gap-2"
           >
             {isExporting ? (
@@ -118,12 +117,30 @@ export default function OutputTemplateView() {
             <span className="text-gray-700">{employeeInfo.name || '—'}</span>
           </div>
           <div>
-            <span className="font-semibold text-[#222b36]">Supervisor: </span>
-            <span className="text-gray-700">{employeeInfo.supervisor || '—'}</span>
-          </div>
-          <div>
             <span className="font-semibold text-[#222b36]">Employee Start Date: </span>
             <span className="text-gray-700">{formatDate(employeeInfo.startDate)}</span>
+          </div>
+          <div>
+            <span className="font-semibold text-[#222b36]">Title: </span>
+            <span className="text-gray-700">{employeeInfo.title || '—'}</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <span className="font-semibold text-[#222b36]">Level: </span>
+            <select
+              value={employeeInfo.level}
+              onChange={(e) => setEmployeeInfo({ level: e.target.value })}
+              className="px-2 py-0.5 rounded-lg border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-[#0078d4] bg-white"
+            >
+              {LEVEL_OPTIONS.map((l) => (
+                <option key={l} value={l}>
+                  {l}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div>
+            <span className="font-semibold text-[#222b36]">Supervisor: </span>
+            <span className="text-gray-700">{employeeInfo.supervisor || '—'}</span>
           </div>
           <div>
             <span className="font-semibold text-[#222b36]">Peer Guide: </span>
@@ -133,41 +150,8 @@ export default function OutputTemplateView() {
 
         <hr className="border-gray-100 mb-5" />
 
-        {/* Title & Level */}
-        <div className="flex flex-wrap gap-6 mb-6 text-sm items-end">
-          <div>
-            <p className="text-xs font-medium text-gray-500 mb-1 uppercase tracking-wide">Title</p>
-            <select
-              value={employeeInfo.title}
-              onChange={(e) => setEmployeeInfo({ title: e.target.value })}
-              className="px-2 py-1 rounded-lg border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-[#0078d4] bg-white"
-            >
-              <option value="">— Select a role —</option>
-              {ROLES.map((r) => (
-                <option key={r} value={r}>
-                  {r}
-                </option>
-              ))}
-            </select>
-          </div>
-          <div>
-            <p className="text-xs font-medium text-gray-500 mb-1 uppercase tracking-wide">Level</p>
-            <select
-              value={employeeInfo.level}
-              onChange={(e) => setEmployeeInfo({ level: e.target.value })}
-              className="px-2 py-1 rounded-lg border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-[#0078d4] bg-white"
-            >
-              {LEVEL_OPTIONS.map((l) => (
-                <option key={l} value={l}>
-                  {l}
-                </option>
-              ))}
-            </select>
-          </div>
-          <div className="text-xs text-gray-400 self-center">
-            {includedRows.length} tasks included
-          </div>
-        </div>
+        {/* task count */}
+        <p className="text-xs text-gray-400 mb-4">{includedRows.length} tasks included</p>
 
         {/* Timing legend */}
         <div className="flex flex-wrap gap-2 mb-4">
