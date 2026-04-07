@@ -2,6 +2,16 @@ import jsPDF, { AcroFormCheckBox } from 'jspdf'
 import autoTable from 'jspdf-autotable'
 import type { MasterTask } from '../data/masterList'
 import type { TaskAssignment, EmployeeInfo } from '../store/appStore'
+import bentonRegularUrl from '../assets/fonts/benton-sans-regular.ttf?url'
+import bentonBoldUrl from '../assets/fonts/benton-sans-bold.ttf?url'
+
+async function toBase64(url: string): Promise<string> {
+  const buf = await fetch(url).then((r) => r.arrayBuffer())
+  const bytes = new Uint8Array(buf)
+  let binary = ''
+  for (let i = 0; i < bytes.length; i++) binary += String.fromCharCode(bytes[i])
+  return btoa(binary)
+}
 
 const TIMING_ORDER = ['Day 1', 'Week 1', '30 Days', '60 Days', 'Exclude']
 
@@ -46,6 +56,15 @@ export async function generatePDF(
         TIMING_ORDER.indexOf(b.assignment.customTiming),
     )
 
+  const [bentonRegular, bentonBold] = await Promise.all([
+    toBase64(bentonRegularUrl),
+    toBase64(bentonBoldUrl),
+  ])
+  doc.addFileToVFS('benton-sans-regular.ttf', bentonRegular)
+  doc.addFont('benton-sans-regular.ttf', 'BentonSans', 'normal')
+  doc.addFileToVFS('benton-sans-bold.ttf', bentonBold)
+  doc.addFont('benton-sans-bold.ttf', 'BentonSans', 'bold')
+
   const primaryColor: [number, number, number] = [34, 43, 54]
   const accentColor: [number, number, number] = [0, 120, 212]
 
@@ -55,52 +74,46 @@ export async function generatePDF(
 
   doc.setTextColor(255, 255, 255)
   doc.setFontSize(18)
-  doc.setFont('helvetica', 'bold')
+  doc.setFont('BentonSans', 'bold')
   doc.text('Onboarding Checklist', 40, 35)
-
-  doc.setFontSize(9)
-  doc.setFont('helvetica', 'normal')
-  doc.text(
-    `Generated: ${new Date().toLocaleDateString()}`,
-    doc.internal.pageSize.getWidth() - 40,
-    35,
-    { align: 'right' },
-  )
 
   // Employee info
   doc.setTextColor(...primaryColor)
   doc.setFontSize(10)
   const startY = 80
 
-  doc.setFont('helvetica', 'bold')
+  doc.setFont('BentonSans', 'bold')
   doc.text('Employee Name:', 40, startY)
-  doc.setFont('helvetica', 'normal')
+  doc.setFont('BentonSans', 'normal')
   doc.text(employeeInfo.name || '—', 160, startY)
 
-  doc.setFont('helvetica', 'bold')
-  doc.text('Supervisor:', 40, startY + 16)
-  doc.setFont('helvetica', 'normal')
-  doc.text(employeeInfo.supervisor || '—', 160, startY + 16)
+  doc.setFont('BentonSans', 'bold')
+  doc.text('Title:', 40, startY + 16)
+  doc.setFont('BentonSans', 'normal')
+  doc.text(employeeInfo.title || '—', 160, startY + 16)
 
-  doc.setFont('helvetica', 'bold')
+  doc.setFont('BentonSans', 'bold')
+  doc.text('Supervisor:', 40, startY + 32)
+  doc.setFont('BentonSans', 'normal')
+  doc.text(employeeInfo.supervisor || '—', 160, startY + 32)
+
+  doc.setFont('BentonSans', 'bold')
   doc.text('Start Date:', 350, startY)
-  doc.setFont('helvetica', 'normal')
+  doc.setFont('BentonSans', 'normal')
   doc.text(formatDate(employeeInfo.startDate), 470, startY)
 
-  doc.setFont('helvetica', 'bold')
-  doc.text('Peer Guide:', 350, startY + 16)
-  doc.setFont('helvetica', 'normal')
-  doc.text(employeeInfo.peerGuide || '—', 470, startY + 16)
+  doc.setFont('BentonSans', 'bold')
+  doc.text('Level:', 350, startY + 16)
+  doc.setFont('BentonSans', 'normal')
+  doc.text(employeeInfo.level || '—', 470, startY + 16)
 
-  if (employeeInfo.title) {
-    doc.setFont('helvetica', 'bold')
-    doc.text('Title:', 40, startY + 32)
-    doc.setFont('helvetica', 'normal')
-    doc.text(employeeInfo.title, 160, startY + 32)
-  }
+  doc.setFont('BentonSans', 'bold')
+  doc.text('Peer Guide:', 350, startY + 32)
+  doc.setFont('BentonSans', 'normal')
+  doc.text(employeeInfo.peerGuide || '—', 470, startY + 32)
 
   // Table
-  const tableStartY = startY + (employeeInfo.title ? 52 : 36)
+  const tableStartY = startY + 52
 
   const whoHowLinks = includedRows.map(({ task }) => task.whoHow.link)
 
@@ -119,12 +132,14 @@ export async function generatePDF(
       fontSize: 8,
       cellPadding: 5,
       overflow: 'linebreak',
+      font: 'BentonSans',
     },
     headStyles: {
       fillColor: primaryColor,
       textColor: [255, 255, 255],
       fontStyle: 'bold',
       fontSize: 8,
+      font: 'BentonSans',
     },
     columnStyles: {
       0: { cellWidth: 50, halign: 'center' },
@@ -209,10 +224,10 @@ export async function generatePDF(
 }
 
 export function exportFeedbackCSV(
-  entries: { date: string; jobCode: string; taskNum: number; timing: string }[],
+  entries: { date: string; taskNum: number; timing: string }[],
 ): void {
-  const header = 'Date,Job Code,Task Num,Timing\n'
-  const rows = entries.map((e) => `${e.date},${e.jobCode},${e.taskNum},${e.timing}`).join('\n')
+  const header = 'Date,Task Num,Timing\n'
+  const rows = entries.map((e) => `${e.date},${e.taskNum},${e.timing}`).join('\n')
   const blob = new Blob([header + rows], { type: 'text/csv' })
   const url = URL.createObjectURL(blob)
   const a = document.createElement('a')

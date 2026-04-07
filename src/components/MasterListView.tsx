@@ -116,7 +116,6 @@ export default function MasterListView() {
                 <thead>
                   <tr className="bg-[#222b36] text-white">
                     <th className="px-3 py-2 text-left">Date</th>
-                    <th className="px-3 py-2 text-left">Job Code</th>
                     <th className="px-3 py-2 text-left">Task #</th>
                     <th className="px-3 py-2 text-left">Timing</th>
                   </tr>
@@ -131,7 +130,6 @@ export default function MasterListView() {
                         className={`border-t border-gray-50 ${i % 2 === 0 ? 'bg-white' : 'bg-[#f4f4f4]'}`}
                       >
                         <td className="px-3 py-1.5 text-gray-600">{entry.date}</td>
-                        <td className="px-3 py-1.5 text-gray-600">{entry.jobCode || '—'}</td>
                         <td className="px-3 py-1.5 text-gray-500">{entry.taskNum}</td>
                         <td className="px-3 py-1.5">
                           <span
