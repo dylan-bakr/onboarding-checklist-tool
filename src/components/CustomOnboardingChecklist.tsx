@@ -1,6 +1,6 @@
 import { useState, useMemo, useRef } from 'react'
 import { useAppStore } from '../store/appStore'
-import { TIMING_OPTIONS } from '../data/masterList'
+import { TIMING_OPTIONS, REQUIRED_TASKS_LIST } from '../data/masterList'
 import AddTaskModal from './AddTaskModal'
 
 const TIMING_ORDER = ['Day 1', 'Week 1', '30 Days', '60 Days', 'Exclude']
@@ -34,6 +34,8 @@ export default function CustomOnboardingChecklist() {
   const [filterText, setFilterText] = useState<string>('')
   const [showAddModal, setShowAddModal] = useState(false)
   const tableRef = useRef<HTMLTableElement>(null)
+
+  const requiredSet = useMemo(() => new Set(REQUIRED_TASKS_LIST), [])
 
   const assignmentMap = useMemo(
     () => new Map(assignments.map((a) => [a.taskNum, a])),
@@ -161,7 +163,9 @@ export default function CustomOnboardingChecklist() {
                   className="rounded"
                   checked={rows.every((r) => r.assignment.included)}
                   onChange={(e) =>
-                    rows.forEach((r) => toggleTaskIncluded(r.task.taskNum, e.target.checked))
+                    rows
+                      .filter((r) => !requiredSet.has(r.task.taskNum))
+                      .forEach((r) => toggleTaskIncluded(r.task.taskNum, e.target.checked))
                   }
                 />
               </th>
@@ -200,9 +204,15 @@ export default function CustomOnboardingChecklist() {
                 <td className="px-3 py-2">
                   <input
                     type="checkbox"
-                    className="rounded cursor-pointer"
+                    className="rounded cursor-pointer disabled:cursor-not-allowed disabled:opacity-60"
                     checked={assignment.included}
+                    disabled={requiredSet.has(task.taskNum)}
                     onChange={(e) => toggleTaskIncluded(task.taskNum, e.target.checked)}
+                    title={
+                      requiredSet.has(task.taskNum)
+                        ? 'This task is required and cannot be excluded'
+                        : undefined
+                    }
                   />
                 </td>
                 <td className="px-3 py-2 text-gray-400 font-mono text-xs">{task.taskNum}</td>
@@ -224,7 +234,9 @@ export default function CustomOnboardingChecklist() {
                     onChange={(e) => updateAssignment(task.taskNum, e.target.value)}
                     className={`px-2 py-1 rounded-lg border text-xs font-medium cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#0078d4] transition-colors ${timingColor(assignment.customTiming)} border-transparent`}
                   >
-                    {TIMING_OPTIONS.map((t) => (
+                    {TIMING_OPTIONS.filter(
+                      (t) => !(requiredSet.has(task.taskNum) && t === 'Exclude'),
+                    ).map((t) => (
                       <option key={t} value={t}>
                         {t}
                       </option>
