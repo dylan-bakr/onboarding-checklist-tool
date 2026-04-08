@@ -9,6 +9,32 @@ function isUrlLink(link: string): boolean {
   return link.startsWith('http://') || link.startsWith('https://')
 }
 
+function WhoHowLink({ link, text }: { link: string; text: string }) {
+  if (isUrlLink(link)) {
+    return (
+      <a
+        href={link}
+        target="_blank"
+        rel="noreferrer noopener"
+        title={link}
+        className="text-[#0078d4] underline hover:text-[#006cbd]"
+      >
+        {text}
+      </a>
+    )
+  }
+  return (
+    <button
+      type="button"
+      title={`Click to copy path:\n${link}`}
+      onClick={() => navigator.clipboard.writeText(link)}
+      className="text-[#0078d4] underline hover:text-[#006cbd] cursor-copy"
+    >
+      {text}
+    </button>
+  )
+}
+
 type SortField = 'taskNum' | 'task' | 'customTiming'
 type SortDir = 'asc' | 'desc'
 
@@ -270,15 +296,7 @@ export default function CustomOnboardingChecklist() {
                 <td className="px-3 py-2 text-gray-500 max-w-xs text-xs">{task.whyGoal}</td>
                 <td className="px-3 py-2 text-gray-500 text-xs whitespace-nowrap">
                   {task.whoHow.link ? (
-                    <a
-                      href={task.whoHow.link}
-                      target={isUrlLink(task.whoHow.link) ? '_blank' : undefined}
-                      rel={isUrlLink(task.whoHow.link) ? 'noreferrer noopener' : undefined}
-                      title={task.whoHow.link}
-                      className="text-[#0078d4] underline hover:text-[#006cbd]"
-                    >
-                      {task.whoHow.text}
-                    </a>
+                    <WhoHowLink link={task.whoHow.link} text={task.whoHow.text} />
                   ) : (
                     task.whoHow.text
                   )}
