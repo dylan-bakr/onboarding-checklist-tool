@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useAppStore } from '../store/appStore'
-import { ROLES } from '../data/masterList'
+import { PATHWAY_TITLES, ROLES } from '../data/masterList'
 
 export default function SupervisorInterface() {
   const { employeeInfo, setEmployeeInfo, setActiveTab, initializeAssignments } = useAppStore()
@@ -57,7 +57,10 @@ export default function SupervisorInterface() {
             <select
               className={`${inputClass} ${errors.title ? 'border-red-400' : ''}`}
               value={employeeInfo.title}
-              onChange={(e) => setEmployeeInfo({ title: e.target.value })}
+              onChange={(e) => {
+                const title = e.target.value
+                setEmployeeInfo({ title, selectedPathway: title in PATHWAY_TITLES ? title : '' })
+              }}
             >
               <option value="">— Select a job title —</option>
               {ROLES.map((r) => (
@@ -109,6 +112,26 @@ export default function SupervisorInterface() {
               value={employeeInfo.peerGuide}
               onChange={(e) => setEmployeeInfo({ peerGuide: e.target.value })}
             />
+          </div>
+
+          <div>
+            <label className={labelClass}>Onboarding Pathway</label>
+            <select
+              className={inputClass}
+              value={employeeInfo.selectedPathway}
+              onChange={(e) => setEmployeeInfo({ selectedPathway: e.target.value })}
+            >
+              <option value="">— Select a pathway (optional) —</option>
+              {Object.keys(PATHWAY_TITLES).map((title) => (
+                <option key={title} value={title}>
+                  {title}
+                </option>
+              ))}
+            </select>
+            <p className="text-xs text-gray-400 mt-1">
+              Pre-fills timing assignments based on a defined role pathway. Overrides the job title
+              pre-fill when set.
+            </p>
           </div>
         </div>
 
