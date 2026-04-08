@@ -1,4 +1,4 @@
-import jsPDF, { AcroFormCheckBox } from 'jspdf'
+import jsPDF, { AcroFormComboBox } from 'jspdf'
 import autoTable from 'jspdf-autotable'
 import type { MasterTask } from '../data/masterList'
 import type { TaskAssignment, EmployeeInfo } from '../store/appStore'
@@ -15,7 +15,7 @@ async function toBase64(url: string): Promise<string> {
 
 const TIMING_ORDER = ['Day 1', 'Week 1', '30 Days', '60 Days', 'Exclude']
 
-const CHECKBOX_SIZE = 9
+const STATUS_OPTIONS = ['Not Started', 'Started', 'Completed']
 
 const TIMING_COLORS: Record<string, [number, number, number]> = {
   'Day 1': [0, 120, 212],
@@ -142,7 +142,7 @@ export async function generatePDF(
       font: 'BentonSans',
     },
     columnStyles: {
-      0: { cellWidth: 50, halign: 'center' },
+      0: { cellWidth: 72, halign: 'center' },
       1: { cellWidth: 25, halign: 'center' },
       2: { cellWidth: 160 },
       3: { cellWidth: 170 },
@@ -158,18 +158,22 @@ export async function generatePDF(
       }
     },
     didDrawCell: (data) => {
-      // Add interactive checkbox in the first column of body rows
+      // Add interactive combo box in the first column of body rows
       if (data.section === 'body' && data.column.index === 0) {
-        const x = data.cell.x + (data.cell.width - CHECKBOX_SIZE) / 2
-        const y = data.cell.y + (data.cell.height - CHECKBOX_SIZE) / 2
-        const cb = new AcroFormCheckBox()
-        cb.fieldName = `task_done_${data.row.index}`
+        const padding = 4
+        const x = data.cell.x + padding
+        const y = data.cell.y + padding
+        const w = data.cell.width - padding * 2
+        const h = data.cell.height - padding * 2
+        const cb = new AcroFormComboBox()
+        cb.fieldName = `task_status_${data.row.index}`
         cb.x = x
         cb.y = y
-        cb.width = CHECKBOX_SIZE
-        cb.height = CHECKBOX_SIZE
-        cb.value = 'Off'
-        cb.appearanceState = 'Off'
+        cb.width = w
+        cb.height = h
+        cb.fontSize = 7
+        cb.value = STATUS_OPTIONS[0]
+        cb.setOptions(STATUS_OPTIONS)
         doc.addField(cb)
       }
       // Color timing badge in last column
