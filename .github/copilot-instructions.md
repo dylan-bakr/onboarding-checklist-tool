@@ -55,6 +55,21 @@ All four checks must pass before pushing. If any fail, fix them before committin
 - **Formatting**: Prettier handles all formatting — do not manually adjust whitespace or line breaks.
 - **ESLint config**: flat config in `eslint.config.js`. Do not add `eslint-disable` comments without a precise, documented reason.
 
+## Pull Requests
+
+When opening a pull request, always populate the body using the template in `.github/pull_request_template.md`. Fill in every section that applies — remove sections that are genuinely not applicable. Always link the resolving issue by replacing `#0` with the real issue number, or remove the line if there is no related issue.
+
+Attach a screenshot of the relevant change from the dev server when it makes sense (if new frontend changes, screenshot -- if javascript functions change, no screenshot, etc.). Place it in a `## Screenshot` section above the developer notes.
+
+## Documentation & Changelog
+
+Apply the following updates whenever a change warrants them — do not skip them silently:
+
+- **`CHANGELOG.md`** — Add an entry under the appropriate heading (`Added`, `Changed`, `Removed`, `Fixed`) in an `## Unreleased` section at the top (create it if absent). Follow the existing [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) format. Only skip this if the change is purely internal tooling with no user-visible effect.
+- **`README.md`** — Update if the change affects features, the tech stack table, setup steps, or usage instructions.
+- **`.devcontainer.json`** — Update if the change affects the development environment (Node version, ports, extensions, post-create commands).
+- **`.github/copilot-instructions.md`** — Update if the change introduces new project conventions, new key files, or alters the development workflow so that future instructions would otherwise be stale or misleading.
+
 ## What NOT to Do
 
 - Do not add new dependencies without a strong justification.
