@@ -5,6 +5,10 @@ import AddTaskModal from './AddTaskModal'
 
 const TIMING_ORDER = ['Day 1', 'Week 1', '30 Days', '60 Days', 'Exclude']
 
+function isUrlLink(link: string): boolean {
+  return link.startsWith('http://') || link.startsWith('https://')
+}
+
 type SortField = 'taskNum' | 'task' | 'customTiming'
 type SortDir = 'asc' | 'desc'
 
@@ -265,7 +269,19 @@ export default function CustomOnboardingChecklist() {
                 <td className="px-3 py-2 font-medium text-[#222b36] max-w-xs">{task.task}</td>
                 <td className="px-3 py-2 text-gray-500 max-w-xs text-xs">{task.whyGoal}</td>
                 <td className="px-3 py-2 text-gray-500 text-xs whitespace-nowrap">
-                  {task.whoHow.text}
+                  {task.whoHow.link ? (
+                    <a
+                      href={task.whoHow.link}
+                      target={isUrlLink(task.whoHow.link) ? '_blank' : undefined}
+                      rel={isUrlLink(task.whoHow.link) ? 'noreferrer noopener' : undefined}
+                      title={task.whoHow.link}
+                      className="text-[#0078d4] underline hover:text-[#006cbd]"
+                    >
+                      {task.whoHow.text}
+                    </a>
+                  ) : (
+                    task.whoHow.text
+                  )}
                 </td>
                 <td className="px-3 py-2">
                   <span

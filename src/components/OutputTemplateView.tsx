@@ -22,6 +22,10 @@ const timingColor = (timing: string) => {
   }
 }
 
+function isUrlLink(link: string): boolean {
+  return link.startsWith('http://') || link.startsWith('https://')
+}
+
 export default function OutputTemplateView() {
   const {
     employeeInfo,
@@ -189,7 +193,19 @@ export default function OutputTemplateView() {
                   <td className="px-3 py-2 font-medium text-[#222b36]">{task.task}</td>
                   <td className="px-3 py-2 text-gray-500 text-xs max-w-xs">{task.whyGoal}</td>
                   <td className="px-3 py-2 text-gray-500 text-xs whitespace-nowrap">
-                    {task.whoHow.text}
+                    {task.whoHow.link ? (
+                      <a
+                        href={task.whoHow.link}
+                        target={isUrlLink(task.whoHow.link) ? '_blank' : undefined}
+                        rel={isUrlLink(task.whoHow.link) ? 'noreferrer noopener' : undefined}
+                        title={task.whoHow.link}
+                        className="text-[#0078d4] underline hover:text-[#006cbd]"
+                      >
+                        {task.whoHow.text}
+                      </a>
+                    ) : (
+                      task.whoHow.text
+                    )}
                   </td>
                   <td className="px-3 py-2">
                     <span
