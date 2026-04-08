@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - standalone Role Pathway selector
+- clickable links to Who / How details in the PDF export, master list view, customization, and output preview screens
 
 ### Changed
 
