@@ -18,7 +18,7 @@ export const REQUIRED_TASKS_LIST = [1, 2, 3, 4, 5, 6, 7, 8, 9, 11, 12, 13, 19, 2
 
 export const TIMING_OPTIONS = ['Day 1', 'Week 1', '30 Days', '60 Days', 'Exclude']
 
-export const PATHWAY_TITLES: Record<string, 'actuarialAnalyst' | 'softwareDeveloper'> = {
+export const PATHWAY_TITLES: Record<string, string> = {
   'Actuarial Analyst': 'actuarialAnalyst',
   'Software Developer': 'softwareDeveloper',
 }

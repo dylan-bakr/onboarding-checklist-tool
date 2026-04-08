@@ -7,28 +7,33 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## v0.2.0
 
+### Added
+
+- standalone Role Pathway selector
+
 ### Changed
 
-- Replaced the checkbox in the PDF Status column with an interactive `AcroFormComboBox`; the field defaults to **Not Started** and offers **Started** and **Completed** as selectable options
+- pre-selected onboarding tasks can now be selected independently from job title; selecting Actuarial Analyst or Software Developer still pre-fills role-specific default timings
+- the checkbox in the PDF Status column with an interactive `AcroFormComboBox`
 
 ## v0.1.0
 
 ### Added
 
-- Required tasks list: 17 tasks are now locked as non-excludable; their checkboxes are disabled and "Exclude" is hidden from their timing dropdown
-- Stable row ordering in the Custom Onboarding Checklist: rows no longer re-sort while timing values are being edited, only when the sort column/direction or filters change
-- Bundled Benton Sans (regular + bold) fonts into PDF exports
+- required tasks list
+- stable row ordering during customization
+- benton sans (regular + bold) fonts into asset bundle and export
 
 ### Changed
 
-- Replaced the free-text Job Code input and separate Role Pathway dropdown on the Supervisor Interface with a single required Job Title selector; selecting Actuarial Analyst or Software Developer still pre-fills role-specific default timings
+- the free-text Job Code input and separate Role Pathway dropdown on the Supervisor Interface into a single required Job Title selector; selecting Actuarial Analyst or Software Developer still pre-fills role-specific default timings
 - Job Title is now a required field — the form will not advance without a selection
-- Output Template header simplified: Supervisor field removed from the on-screen preview
+- Output Template header presentation simplified
 
 ### Removed
 
-- Job Code field from employee info and from Feedback Database entries (CSV export columns: Date, Task #, Timing)
-- Standalone Role Pathway selector (consolidated into Job Title)
+- Job Code field from employee info and from Feedback Database entries
+- standalone Role Pathway selector
 
 ## v0.0.0
 
@@ -38,6 +43,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - repository health checks configurations for eslint and prettier
 - basic UI components and routing structure
 - state management with Zustand
-- PDF generation functionality using jsPDF and jsPDF-AutoTable
+- PDF generation functionality using `jsPDF` and `jsPDF-AutoTable`
 - build pipeline with GitHub Actions for linting, testing, and Docker image building
 - devcontainer configuration for consistent development environment
