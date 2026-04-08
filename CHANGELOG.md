@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## v0.2.0
+
+### Changed
+
+- Replaced the checkbox in the PDF Status column with an interactive `AcroFormComboBox`; the field defaults to **Not Started** and offers **Started** and **Completed** as selectable options
+
 ## v0.1.0
 
 ### Added
