@@ -57,7 +57,10 @@ export default function SupervisorInterface() {
             <select
               className={`${inputClass} ${errors.title ? 'border-red-400' : ''}`}
               value={employeeInfo.title}
-              onChange={(e) => setEmployeeInfo({ title: e.target.value })}
+              onChange={(e) => {
+                const title = e.target.value
+                setEmployeeInfo({ title, selectedPathway: title in PATHWAY_TITLES ? title : '' })
+              }}
             >
               <option value="">— Select a job title —</option>
               {ROLES.map((r) => (

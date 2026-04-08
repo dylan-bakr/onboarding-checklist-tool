@@ -47,7 +47,7 @@ interface AppState {
 function getDefaultTimingForPathway(task: MasterTask, jobTitle: string): string {
   const timingKey = PATHWAY_TITLES[jobTitle]
   if (!timingKey) return task.defaultTiming
-  return task[timingKey]
+  return task[timingKey as keyof MasterTask] as string
 }
 
 const FEEDBACK_STORAGE_KEY = 'onboarding-feedback-db'
