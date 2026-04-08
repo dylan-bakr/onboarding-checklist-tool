@@ -142,7 +142,7 @@ export async function generatePDF(
       font: 'BentonSans',
     },
     columnStyles: {
-      0: { cellWidth: 50, halign: 'center' },
+      0: { cellWidth: 72, halign: 'center' },
       1: { cellWidth: 25, halign: 'center' },
       2: { cellWidth: 160 },
       3: { cellWidth: 170 },
@@ -171,6 +171,7 @@ export async function generatePDF(
         cb.y = y
         cb.width = w
         cb.height = h
+        cb.fontSize = 7
         cb.value = STATUS_OPTIONS[0]
         cb.setOptions(STATUS_OPTIONS)
         doc.addField(cb)
