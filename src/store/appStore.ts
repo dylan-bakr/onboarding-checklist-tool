@@ -9,6 +9,7 @@ export interface EmployeeInfo {
   startDate: string
   supervisor: string
   peerGuide: string
+  selectedPathway: string
   title: string
   level: string
 }
@@ -71,6 +72,7 @@ export const useAppStore = create<AppState>()((set, get) => ({
     startDate: '',
     supervisor: '',
     peerGuide: '',
+    selectedPathway: '',
     title: '',
     level: '1i',
   },
@@ -86,7 +88,10 @@ export const useAppStore = create<AppState>()((set, get) => ({
   initializeAssignments: () => {
     const { employeeInfo, tasks } = get()
     const assignments: TaskAssignment[] = tasks.map((task) => {
-      const timing = getDefaultTimingForPathway(task, employeeInfo.title)
+      const timing = getDefaultTimingForPathway(
+        task,
+        employeeInfo.selectedPathway || employeeInfo.title,
+      )
       return {
         taskNum: task.taskNum,
         customTiming: timing,
