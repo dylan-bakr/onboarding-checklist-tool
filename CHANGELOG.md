@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - PDF viewer modal for S Drive links ending in `.pdf`: clicking the link opens a modal (blurred background, rounded corners) that shows the network path for reference and lets the user open the file locally to view it inline
 - shared `WhoHowLink` component extracted from the three view components to centralise link-rendering and PDF-detection logic
+- bundled asset support: tasks whose S Drive link has a corresponding `bundledAsset` now load from the app bundle instead of requiring the user to open from the network drive; bundled PDFs render immediately in the viewer modal, bundled `.docx` files are offered as direct downloads
 
 ### Changed
 

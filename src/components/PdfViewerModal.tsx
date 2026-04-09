@@ -2,12 +2,15 @@ import { useRef, useState } from 'react'
 
 interface Props {
   path: string
+  bundledUrl?: string
   onClose: () => void
 }
 
-export default function PdfViewerModal({ path, onClose }: Props) {
+export default function PdfViewerModal({ path, bundledUrl, onClose }: Props) {
   const [fileUrl, setFileUrl] = useState<string | null>(null)
   const inputRef = useRef<HTMLInputElement>(null)
+
+  const displayUrl = bundledUrl ?? (fileUrl?.startsWith('blob:') ? fileUrl : undefined)
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0]
@@ -41,7 +44,16 @@ export default function PdfViewerModal({ path, onClose }: Props) {
           </p>
         </div>
 
-        {!fileUrl ? (
+        {displayUrl ? (
+          <div className="flex-1 min-h-0">
+            <iframe
+              src={displayUrl}
+              sandbox="allow-scripts allow-same-origin"
+              className="w-full h-full rounded-lg border border-gray-100"
+              title="PDF Viewer"
+            />
+          </div>
+        ) : (
           <div className="flex-1 flex flex-col items-center justify-center gap-4 text-center">
             <p className="text-sm text-gray-500 max-w-sm">
               This file lives on the network drive. Navigate to the path above, then open the file
@@ -59,15 +71,6 @@ export default function PdfViewerModal({ path, onClose }: Props) {
               accept=".pdf,application/pdf"
               className="hidden"
               onChange={handleFileChange}
-            />
-          </div>
-        ) : (
-          <div className="flex-1 min-h-0">
-            <iframe
-              src={fileUrl?.startsWith('blob:') ? fileUrl : undefined}
-              sandbox="allow-scripts allow-same-origin"
-              className="w-full h-full rounded-lg border border-gray-100"
-              title="PDF Viewer"
             />
           </div>
         )}

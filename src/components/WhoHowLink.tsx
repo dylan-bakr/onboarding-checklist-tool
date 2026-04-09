@@ -12,9 +12,10 @@ function isSdrivePdf(link: string): boolean {
 interface Props {
   link: string
   text: string
+  bundledAsset?: string
 }
 
-export default function WhoHowLink({ link, text }: Props) {
+export default function WhoHowLink({ link, text, bundledAsset }: Props) {
   const [showPdf, setShowPdf] = useState(false)
 
   if (isUrlLink(link)) {
@@ -31,6 +32,40 @@ export default function WhoHowLink({ link, text }: Props) {
     )
   }
 
+  // Bundled PDF asset — open viewer immediately without file picker
+  if (bundledAsset && bundledAsset.toLowerCase().endsWith('.pdf')) {
+    return (
+      <>
+        <button
+          type="button"
+          title={`Open PDF: ${link}`}
+          onClick={() => setShowPdf(true)}
+          className="text-[#0078d4] underline hover:text-[#006cbd] cursor-pointer"
+        >
+          PDF
+        </button>
+        {showPdf && (
+          <PdfViewerModal bundledUrl={bundledAsset} path={link} onClose={() => setShowPdf(false)} />
+        )}
+      </>
+    )
+  }
+
+  // Bundled .docx asset — offer direct download
+  if (bundledAsset && bundledAsset.toLowerCase().endsWith('.docx')) {
+    return (
+      <a
+        href={bundledAsset}
+        download
+        title={`Download: ${link}`}
+        className="text-[#0078d4] underline hover:text-[#006cbd]"
+      >
+        {text}
+      </a>
+    )
+  }
+
+  // S Drive PDF without a bundled asset — user picks the file locally
   if (isSdrivePdf(link)) {
     return (
       <>

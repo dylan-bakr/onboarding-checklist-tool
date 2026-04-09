@@ -191,7 +191,11 @@ export default function OutputTemplateView() {
                   <td className="px-3 py-2 text-gray-500 text-xs max-w-xs">{task.whyGoal}</td>
                   <td className="px-3 py-2 text-gray-500 text-xs whitespace-nowrap">
                     {task.whoHow.link ? (
-                      <WhoHowLink link={task.whoHow.link} text={task.whoHow.text} />
+                      <WhoHowLink
+                        link={task.whoHow.link}
+                        text={task.whoHow.text}
+                        bundledAsset={task.whoHow.bundledAsset}
+                      />
                     ) : (
                       task.whoHow.text
                     )}
