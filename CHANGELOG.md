@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- edit support for custom (ephemeral) tasks: a pencil icon appears on hover next to any task added via "Add Task"; clicking it opens the AddTaskModal pre-populated with the task's current values so the name, goal, who/how, link, and timing can be corrected without deleting and re-creating the entry
+- edit support for custom (ephemeral) tasks: a pencil icon appears on hover next to any task added via "Add Task"
 
 ## v0.2.1
 
