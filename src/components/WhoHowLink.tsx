@@ -36,7 +36,7 @@ export default function WhoHowLink({ link, text }: Props) {
       <>
         <button
           type="button"
-          title={`Open PDF from:\n${link}`}
+          title={`Open PDF: ${link}`}
           onClick={() => setShowPdf(true)}
           className="text-[#0078d4] underline hover:text-[#006cbd] cursor-pointer"
         >
@@ -50,7 +50,7 @@ export default function WhoHowLink({ link, text }: Props) {
   return (
     <button
       type="button"
-      title={`Click to copy path:\n${link}`}
+      title={`Copy path: ${link}`}
       onClick={() => navigator.clipboard.writeText(link)}
       className="text-[#0078d4] underline hover:text-[#006cbd] cursor-copy"
     >
