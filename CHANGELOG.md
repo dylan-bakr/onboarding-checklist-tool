@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## Unreleased
+
+### Added
+
+- edit support for custom (ephemeral) tasks: a pencil icon appears on hover next to any task added via "Add Task"; clicking it opens the AddTaskModal pre-populated with the task's current values so the name, goal, who/how, link, and timing can be corrected without deleting and re-creating the entry
+
 ## v0.2.1
 
 ### Fixed
