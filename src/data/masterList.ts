@@ -20,7 +20,7 @@ export const TIMING_OPTIONS = ['Day 1', 'Week 1', '30 Days', '60 Days', 'Exclude
 
 export const PATHWAY_TITLES: Record<string, string> = {
   'Actuarial Analyst': 'actuarialAnalyst',
-  'Software Developer': 'softwareDeveloper',
+  'Software Developer/Engineer': 'softwareDeveloper',
 }
 
 export const ROLES = [
