@@ -2,6 +2,7 @@ import { useMemo } from 'react'
 import { useAppStore } from '../store/appStore'
 import { LEVEL_OPTIONS, TIMING_OPTIONS } from '../data/masterList'
 import { generatePDF } from '../utils/pdfExport'
+import WhoHowLink from './WhoHowLink'
 
 const TIMING_ORDER = ['Day 1', 'Week 1', '30 Days', '60 Days', 'Exclude']
 
@@ -20,36 +21,6 @@ const timingColor = (timing: string) => {
     default:
       return 'bg-gray-100 text-gray-600'
   }
-}
-
-function isUrlLink(link: string): boolean {
-  return link.startsWith('http://') || link.startsWith('https://')
-}
-
-function WhoHowLink({ link, text }: { link: string; text: string }) {
-  if (isUrlLink(link)) {
-    return (
-      <a
-        href={link}
-        target="_blank"
-        rel="noreferrer noopener"
-        title={link}
-        className="text-[#0078d4] underline hover:text-[#006cbd]"
-      >
-        {text}
-      </a>
-    )
-  }
-  return (
-    <button
-      type="button"
-      title={`Click to copy path:\n${link}`}
-      onClick={() => navigator.clipboard.writeText(link)}
-      className="text-[#0078d4] underline hover:text-[#006cbd] cursor-copy"
-    >
-      {text}
-    </button>
-  )
 }
 
 export default function OutputTemplateView() {
@@ -220,7 +191,11 @@ export default function OutputTemplateView() {
                   <td className="px-3 py-2 text-gray-500 text-xs max-w-xs">{task.whyGoal}</td>
                   <td className="px-3 py-2 text-gray-500 text-xs whitespace-nowrap">
                     {task.whoHow.link ? (
-                      <WhoHowLink link={task.whoHow.link} text={task.whoHow.text} />
+                      <WhoHowLink
+                        link={task.whoHow.link}
+                        text={task.whoHow.text}
+                        bundledAsset={task.whoHow.bundledAsset}
+                      />
                     ) : (
                       task.whoHow.text
                     )}

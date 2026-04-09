@@ -1,6 +1,7 @@
 export interface WhoHow {
   text: string
   link: string | null
+  bundledAsset?: string
 }
 
 export interface MasterTask {
@@ -259,6 +260,7 @@ export const MASTER_TASKS: MasterTask[] = [
     whoHow: {
       text: 'S Drive',
       link: 'S:\\Onboarding and Training\\Onboarding\\Onboarding Pathways\\Source Documents\\Milliman ChatGPT.docx',
+      bundledAsset: '/assets/milliman-chat-gpt.md',
     },
     defaultTiming: 'Week 1',
     softwareDeveloper: 'Week 1',
@@ -298,6 +300,7 @@ export const MASTER_TASKS: MasterTask[] = [
     whoHow: {
       text: 'Indy Concur Job Aid',
       link: 'S:\\Onboarding and Training\\Training\\Concur Job Aid\\Concur Expense Report Job Aid.pdf',
+      bundledAsset: '/assets/concur-expense-report-job-aid.pdf',
     },
     defaultTiming: '30 Days',
     softwareDeveloper: '30 Days',
@@ -310,6 +313,7 @@ export const MASTER_TASKS: MasterTask[] = [
     whoHow: {
       text: 'S Drive',
       link: 'S:\\Onboarding and Training\\Onboarding\\Onboarding Pathways\\Source Documents\\Exam Reimbursement Request Intro.docx',
+      bundledAsset: '/assets/exam-reimbursement-request-intro.md',
     },
     defaultTiming: '30 Days',
     softwareDeveloper: 'Exclude',

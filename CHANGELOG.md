@@ -5,6 +5,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## Unreleased
+
+### Added
+
+- In-app preview modal for bundled assets: clicking a Who / How link that has a bundled asset opens a modal (blurred backdrop, rounded corners) that displays the content inline
+- PDF preview via `<iframe>` for the Concur Expense Report Job Aid (task 24)
+- Markdown document preview (fetched and rendered as pre-formatted text) for the Milliman ChatGPT guide (task 20) and Exam Reimbursement Request intro (task 25)
+- Source path shown at the top of the preview modal as a one-click copy button for easy reference
+- Shared `WhoHowLink` component and `PreviewModal` component extracted from the three view components
+
+### Changed
+
+- Who / How link text for bundled PDF assets now reads "Preview PDF"; for bundled Markdown assets it reads "Preview Doc"
+
 ## v0.2.1
 
 ### Fixed
