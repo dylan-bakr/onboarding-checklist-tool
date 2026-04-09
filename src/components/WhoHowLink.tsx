@@ -22,7 +22,7 @@ export default function WhoHowLink({ link, text }: Props) {
       <a
         href={link}
         target="_blank"
-        rel="noreferrer noopener"
+        rel="noopener noreferrer"
         title={link}
         className="text-[#0078d4] underline hover:text-[#006cbd]"
       >
