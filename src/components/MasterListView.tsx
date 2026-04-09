@@ -2,36 +2,7 @@ import { useState, useMemo } from 'react'
 import { useAppStore } from '../store/appStore'
 import { TIMING_OPTIONS } from '../data/masterList'
 import { exportFeedbackCSV } from '../utils/pdfExport'
-
-function isUrlLink(link: string): boolean {
-  return link.startsWith('http://') || link.startsWith('https://')
-}
-
-function WhoHowLink({ link, text }: { link: string; text: string }) {
-  if (isUrlLink(link)) {
-    return (
-      <a
-        href={link}
-        target="_blank"
-        rel="noreferrer noopener"
-        title={link}
-        className="text-[#0078d4] underline hover:text-[#006cbd]"
-      >
-        {text}
-      </a>
-    )
-  }
-  return (
-    <button
-      type="button"
-      title={`Click to copy path:\n${link}`}
-      onClick={() => navigator.clipboard.writeText(link)}
-      className="text-[#0078d4] underline hover:text-[#006cbd] cursor-copy"
-    >
-      {text}
-    </button>
-  )
-}
+import WhoHowLink from './WhoHowLink'
 
 type SortField = 'taskNum' | 'task' | 'defaultTiming'
 type SortDir = 'asc' | 'desc'

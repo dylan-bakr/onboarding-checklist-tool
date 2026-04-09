@@ -5,6 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## Unreleased
+
+### Added
+
+- PDF viewer modal for S Drive links ending in `.pdf`: clicking the link opens a modal (blurred background, rounded corners) that shows the network path for reference and lets the user open the file locally to view it inline
+- shared `WhoHowLink` component extracted from the three view components to centralise link-rendering and PDF-detection logic
+
+### Changed
+
+- S Drive links that point to `.pdf` files now display as "PDF" instead of the task-specific text
+
 ## v0.2.1
 
 ### Fixed
