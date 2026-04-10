@@ -57,7 +57,7 @@ export default function AddTaskModal({ onClose, taskToEdit }: Props) {
           </h3>
           <button
             onClick={onClose}
-            className="text-gray-400 hover:text-gray-600 text-xl leading-none"
+            className="text-gray-400 hover:text-gray-600 text-xl leading-none cursor-pointer"
           >
             ×
           </button>
@@ -94,7 +94,7 @@ export default function AddTaskModal({ onClose, taskToEdit }: Props) {
                 type="button"
                 onClick={() => setShowLinkInput((v) => !v)}
                 title={showLinkInput ? 'Remove link' : 'Add link'}
-                className={`leading-none text-base transition-colors ${showLinkInput ? 'text-[#0078d4]' : 'text-gray-400 hover:text-[#0078d4]'}`}
+                className={`leading-none text-base transition-colors ${showLinkInput ? 'text-[#0078d4]' : 'text-gray-400 hover:text-[#0078d4]'} cursor-pointer`}
               >
                 🔗
               </button>
@@ -122,7 +122,7 @@ export default function AddTaskModal({ onClose, taskToEdit }: Props) {
           <div>
             <label className={labelClass}>Timing</label>
             <select
-              className={inputClass}
+              className={[inputClass, 'cursor-pointer'].join(' ')}
               value={form.timing}
               onChange={(e) => setForm({ ...form, timing: e.target.value })}
             >
@@ -138,13 +138,13 @@ export default function AddTaskModal({ onClose, taskToEdit }: Props) {
         <div className="flex gap-3 mt-6">
           <button
             onClick={onClose}
-            className="flex-1 py-2.5 border border-gray-200 rounded-xl text-gray-600 hover:bg-gray-50 text-sm transition-colors"
+            className="flex-1 py-2.5 border border-gray-200 rounded-xl text-gray-600 hover:bg-gray-50 text-sm transition-colors cursor-pointer"
           >
             Cancel
           </button>
           <button
             onClick={handleSubmit}
-            className="flex-1 py-2.5 bg-[#0078d4] hover:bg-[#006cbd] text-white font-semibold rounded-xl text-sm transition-colors"
+            className="flex-1 py-2.5 bg-[#0078d4] hover:bg-[#006cbd] text-white font-semibold rounded-xl text-sm transition-colors cursor-pointer"
           >
             {isEditMode ? 'Save Changes' : 'Add Task'}
           </button>

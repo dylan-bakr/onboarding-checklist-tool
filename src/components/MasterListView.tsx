@@ -141,7 +141,7 @@ export default function MasterListView() {
           <button
             onClick={handleExportAll}
             disabled={isExportingAll}
-            className="px-4 py-2 text-sm bg-[#0078d4] border border-gray-200 hover:border-[#0078d4] text-white font-medium rounded-lg transition-colors disabled:opacity-60 disabled:cursor-not-allowed flex items-center gap-2"
+            className="px-4 py-2 text-sm bg-[#0078d4] border border-gray-200 hover:border-[#0078d4] text-white font-medium rounded-lg transition-colors disabled:opacity-60 disabled:cursor-not-allowed flex items-center gap-2 cursor-pointer"
           >
             {isExportingAll ? (
               <>
@@ -154,14 +154,14 @@ export default function MasterListView() {
           </button>
           <button
             onClick={() => setShowFeedback(!showFeedback)}
-            className="px-4 py-2 text-sm bg-white border border-gray-200 hover:border-[#0078d4] text-[#0078d4] font-medium rounded-lg transition-colors"
+            className="px-4 py-2 text-sm bg-white border border-gray-200 hover:border-[#0078d4] text-[#0078d4] font-medium rounded-lg transition-colors cursor-pointer"
           >
             {showFeedback ? 'Hide' : 'View'} Feedback DB ({feedbackDb.length})
           </button>
           {feedbackDb.length > 0 && (
             <button
               onClick={() => exportFeedbackCSV(feedbackDb)}
-              className="px-4 py-2 text-sm bg-white border border-gray-200 hover:border-[#00a562] text-[#00a562] font-medium rounded-lg transition-colors"
+              className="px-4 py-2 text-sm bg-white border border-gray-200 hover:border-[#00a562] text-[#00a562] font-medium rounded-lg transition-colors cursor-pointer"
             >
               Export Feedback CSV
             </button>

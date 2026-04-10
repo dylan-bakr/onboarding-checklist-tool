@@ -138,7 +138,7 @@ export default function SupervisorInterface() {
         <div className="mt-8">
           <button
             onClick={handleStart}
-            className="w-full py-3 px-6 bg-[#0078d4] hover:bg-[#006cbd] active:bg-[#005a9e] text-white font-semibold rounded-xl transition-colors duration-150 shadow-sm hover:shadow-md"
+            className="w-full py-3 px-6 bg-[#0078d4] hover:bg-[#006cbd] active:bg-[#005a9e] text-white font-semibold rounded-xl transition-colors duration-150 shadow-sm hover:shadow-md cursor-pointer"
           >
             Start Customizing →
           </button>
