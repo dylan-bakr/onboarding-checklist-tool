@@ -190,13 +190,13 @@ export default function CustomOnboardingChecklist() {
         <div className="flex gap-2 flex-wrap">
           <button
             onClick={() => setShowAddModal(true)}
-            className="px-4 py-2 text-sm bg-white border border-gray-200 hover:border-[#0078d4] text-[#0078d4] font-medium rounded-lg transition-colors"
+            className="px-4 py-2 text-sm bg-white border border-gray-200 hover:border-[#0078d4] text-[#0078d4] font-medium rounded-lg transition-colors cursor-pointer"
           >
             + Add Task
           </button>
           <button
             onClick={() => setActiveTab('output')}
-            className="px-4 py-2 text-sm bg-white border border-gray-200 hover:border-gray-300 text-gray-700 font-medium rounded-lg transition-colors"
+            className="px-4 py-2 text-sm bg-white border border-gray-200 hover:border-gray-300 text-gray-700 font-medium rounded-lg transition-colors cursor-pointer"
           >
             Preview Output →
           </button>
@@ -215,7 +215,7 @@ export default function CustomOnboardingChecklist() {
         <select
           value={filterTiming}
           onChange={(e) => setFilterTiming(e.target.value)}
-          className="px-3 py-1.5 rounded-lg border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-[#0078d4] bg-white"
+          className="px-3 py-1.5 rounded-lg border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-[#0078d4] bg-white cursor-pointer"
         >
           <option value="">All timings</option>
           {TIMING_OPTIONS.map((t) => (
@@ -301,7 +301,7 @@ export default function CustomOnboardingChecklist() {
                         type="button"
                         title="Edit task"
                         onClick={() => setEditingTask(task)}
-                        className="text-gray-300 hover:text-[#0078d4] transition-colors opacity-0 group-hover:opacity-100 focus:opacity-100 text-xs leading-none"
+                        className="text-gray-300 hover:text-[#0078d4] transition-colors opacity-0 group-hover:opacity-100 focus:opacity-100 text-xs leading-none cursor-pointer"
                       >
                         ✏️
                       </button>
