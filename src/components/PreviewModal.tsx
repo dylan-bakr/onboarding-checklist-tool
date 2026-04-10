@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import Markdown from 'react-markdown'
 
 interface Props {
   /** Bundled public URL to preview (e.g. /assets/foo.pdf or /assets/foo.md) */
@@ -44,10 +45,8 @@ function MarkdownViewer({ url }: { url: string }) {
   }
 
   return (
-    <div className="flex-1 min-h-0 overflow-y-auto rounded-lg border border-gray-100 bg-[#f9f9f9] p-4">
-      <pre className="whitespace-pre-wrap font-sans text-sm text-gray-700 leading-relaxed">
-        {content}
-      </pre>
+    <div className="flex-1 min-h-0 overflow-y-auto rounded-lg border border-gray-100 bg-[#f9f9f9] p-6 prose prose-sm max-w-none text-gray-700 [&_h1]:text-xl [&_h1]:font-bold [&_h1]:mb-3 [&_h2]:text-lg [&_h2]:font-semibold [&_h2]:mb-2 [&_h3]:font-semibold [&_h3]:mb-1 [&_p]:mb-3 [&_ul]:list-disc [&_ul]:pl-5 [&_ul]:mb-3 [&_ol]:list-decimal [&_ol]:pl-5 [&_ol]:mb-3 [&_li]:mb-1 [&_strong]:font-semibold [&_code]:bg-gray-200 [&_code]:px-1 [&_code]:rounded [&_code]:text-xs [&_pre]:bg-gray-200 [&_pre]:p-3 [&_pre]:rounded-lg [&_pre]:overflow-x-auto [&_a]:text-[#0078d4] [&_a]:underline [&_hr]:border-gray-200 [&_hr]:my-4 [&_blockquote]:border-l-4 [&_blockquote]:border-gray-300 [&_blockquote]:pl-4 [&_blockquote]:italic [&_blockquote]:text-gray-500">
+      <Markdown>{content}</Markdown>
     </div>
   )
 }
