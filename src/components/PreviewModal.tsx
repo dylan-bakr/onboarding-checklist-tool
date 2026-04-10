@@ -11,7 +11,7 @@ interface Props {
 function mediaLabel(url: string): string {
   const lower = url.toLowerCase()
   if (lower.endsWith('.pdf')) return 'PDF'
-  if (lower.endsWith('.md')) return 'Doc'
+  if (lower.endsWith('.md')) return 'Document'
   return 'File'
 }
 

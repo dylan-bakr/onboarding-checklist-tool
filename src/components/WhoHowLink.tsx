@@ -7,8 +7,8 @@ function isUrlLink(link: string): boolean {
 
 function previewLabel(bundledAsset: string): string {
   const lower = bundledAsset.toLowerCase()
-  if (lower.endsWith('.pdf')) return 'Preview PDF'
-  if (lower.endsWith('.md')) return 'Preview Doc'
+  if (lower.endsWith('.pdf')) return 'PDF'
+  if (lower.endsWith('.md')) return 'Document'
   return 'Preview'
 }
 
