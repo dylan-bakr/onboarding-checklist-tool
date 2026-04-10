@@ -89,7 +89,6 @@ export default function PreviewModal({ assetUrl, path, onClose }: Props) {
           <div className="flex-1 min-h-0">
             <iframe
               src={assetUrl}
-              sandbox="allow-same-origin"
               className="w-full h-full rounded-lg border border-gray-100"
               title={`Preview ${label}`}
             />
