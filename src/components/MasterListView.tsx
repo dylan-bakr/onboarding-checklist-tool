@@ -197,7 +197,7 @@ export default function MasterListView() {
         <select
           value={filterTiming}
           onChange={(e) => setFilterTiming(e.target.value)}
-          className="px-3 py-1.5 rounded-lg border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-[#0078d4] bg-white"
+          className="px-3 py-1.5 rounded-lg border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-[#0078d4] bg-white cursor-pointer"
         >
           <option value="">All timings</option>
           {TIMING_OPTIONS.map((t) => (
