@@ -12,6 +12,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - edit support for custom (ephemeral) tasks: a pencil icon appears on hover next to any task added via "Add Task"
 - 'export all' button to master list view: generates PDF with all tasks included
 
+### Changed
+
+- cursor to pointer when hover buttons or other pressables
+
 ## v0.2.1
 
 ### Fixed
