@@ -5,16 +5,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## Unreleased
+## v0.3.0
 
 ### Added
 
 - edit support for custom (ephemeral) tasks: a pencil icon appears on hover next to any task added via "Add Task"
 - 'export all' button to master list view: generates PDF with all tasks included
+- in-app `PreviewModal` component for bundled assets: introduces new production dependency on [react-markdown](https://remarkjs.github.io/react-markdown/)
 
 ### Changed
 
 - cursor to pointer when hover buttons or other pressables
+- `WhoHowLink` from the three view components extracted into shared component
+- `whoHow` link text for bundled assets to read "Preview PDF" or "Preview Document"
 
 ## v0.2.1
 

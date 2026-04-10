@@ -2,36 +2,7 @@ import { useState, useMemo } from 'react'
 import { useAppStore } from '../store/appStore'
 import { TIMING_OPTIONS } from '../data/masterList'
 import { exportFeedbackCSV, generatePDF } from '../utils/pdfExport'
-
-function isUrlLink(link: string): boolean {
-  return link.startsWith('http://') || link.startsWith('https://')
-}
-
-function WhoHowLink({ link, text }: { link: string; text: string }) {
-  if (isUrlLink(link)) {
-    return (
-      <a
-        href={link}
-        target="_blank"
-        rel="noreferrer noopener"
-        title={link}
-        className="text-[#0078d4] underline hover:text-[#006cbd]"
-      >
-        {text}
-      </a>
-    )
-  }
-  return (
-    <button
-      type="button"
-      title={`Click to copy path:\n${link}`}
-      onClick={() => navigator.clipboard.writeText(link)}
-      className="text-[#0078d4] underline hover:text-[#006cbd] cursor-copy"
-    >
-      {text}
-    </button>
-  )
-}
+import WhoHowLink from './WhoHowLink'
 
 type SortField = 'taskNum' | 'task' | 'defaultTiming'
 type SortDir = 'asc' | 'desc'
@@ -226,7 +197,7 @@ export default function MasterListView() {
         <select
           value={filterTiming}
           onChange={(e) => setFilterTiming(e.target.value)}
-          className="px-3 py-1.5 rounded-lg border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-[#0078d4] bg-white"
+          className="px-3 py-1.5 rounded-lg border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-[#0078d4] bg-white cursor-pointer"
         >
           <option value="">All timings</option>
           {TIMING_OPTIONS.map((t) => (
@@ -285,7 +256,11 @@ export default function MasterListView() {
                 <td className="px-3 py-2 text-gray-500 text-xs max-w-xs">{task.whyGoal}</td>
                 <td className="px-3 py-2 text-gray-500 text-xs whitespace-nowrap">
                   {task.whoHow.link ? (
-                    <WhoHowLink link={task.whoHow.link} text={task.whoHow.text} />
+                    <WhoHowLink
+                      link={task.whoHow.link}
+                      text={task.whoHow.text}
+                      bundledAsset={task.whoHow.bundledAsset}
+                    />
                   ) : (
                     task.whoHow.text
                   )}
