@@ -85,14 +85,14 @@ export default function OutputTemplateView() {
         <div className="flex gap-2">
           <button
             onClick={() => setActiveTab('checklist')}
-            className="px-4 py-2 text-sm bg-white border border-gray-200 hover:border-gray-300 text-gray-700 font-medium rounded-lg transition-colors"
+            className="px-4 py-2 text-sm bg-white border border-gray-200 hover:border-gray-300 text-gray-700 font-medium rounded-lg transition-colors cursor-pointer"
           >
             ← Back to Checklist
           </button>
           <button
             onClick={handleExport}
             disabled={isExporting}
-            className="px-4 py-2 text-sm bg-[#0078d4] hover:bg-[#006cbd] disabled:opacity-60 disabled:cursor-not-allowed text-white font-semibold rounded-lg transition-colors shadow-sm flex items-center gap-2"
+            className="px-4 py-2 text-sm bg-[#0078d4] hover:bg-[#006cbd] disabled:opacity-60 disabled:cursor-not-allowed text-white font-semibold rounded-lg transition-colors shadow-sm flex items-center gap-2 cursor-pointer"
           >
             {isExporting ? (
               <>
@@ -130,7 +130,7 @@ export default function OutputTemplateView() {
             <select
               value={employeeInfo.level}
               onChange={(e) => setEmployeeInfo({ level: e.target.value })}
-              className="px-2 py-0.5 rounded-lg border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-[#0078d4] bg-white"
+              className="px-2 py-0.5 rounded-lg border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-[#0078d4] bg-white cursor-pointer"
             >
               {LEVEL_OPTIONS.map((l) => (
                 <option key={l} value={l}>

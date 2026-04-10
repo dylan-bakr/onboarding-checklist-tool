@@ -34,6 +34,7 @@ export default function CustomOnboardingChecklist() {
   const [filterTiming, setFilterTiming] = useState<string>('')
   const [filterText, setFilterText] = useState<string>('')
   const [showAddModal, setShowAddModal] = useState(false)
+  const [editingTask, setEditingTask] = useState<(typeof tasks)[number] | null>(null)
   const tableRef = useRef<HTMLTableElement>(null)
 
   const requiredSet = useMemo(() => new Set(REQUIRED_TASKS_LIST), [])
@@ -160,13 +161,13 @@ export default function CustomOnboardingChecklist() {
         <div className="flex gap-2 flex-wrap">
           <button
             onClick={() => setShowAddModal(true)}
-            className="px-4 py-2 text-sm bg-white border border-gray-200 hover:border-[#0078d4] text-[#0078d4] font-medium rounded-lg transition-colors"
+            className="px-4 py-2 text-sm bg-white border border-gray-200 hover:border-[#0078d4] text-[#0078d4] font-medium rounded-lg transition-colors cursor-pointer"
           >
             + Add Task
           </button>
           <button
             onClick={() => setActiveTab('output')}
-            className="px-4 py-2 text-sm bg-white border border-gray-200 hover:border-gray-300 text-gray-700 font-medium rounded-lg transition-colors"
+            className="px-4 py-2 text-sm bg-white border border-gray-200 hover:border-gray-300 text-gray-700 font-medium rounded-lg transition-colors cursor-pointer"
           >
             Preview Output →
           </button>
@@ -185,7 +186,7 @@ export default function CustomOnboardingChecklist() {
         <select
           value={filterTiming}
           onChange={(e) => setFilterTiming(e.target.value)}
-          className="px-3 py-1.5 rounded-lg border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-[#0078d4] bg-white"
+          className="px-3 py-1.5 rounded-lg border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-[#0078d4] bg-white cursor-pointer"
         >
           <option value="">All timings</option>
           {TIMING_OPTIONS.map((t) => (
@@ -263,7 +264,23 @@ export default function CustomOnboardingChecklist() {
                   />
                 </td>
                 <td className="px-3 py-2 text-gray-400 font-mono text-xs">{task.taskNum}</td>
-                <td className="px-3 py-2 font-medium text-[#222b36] max-w-xs">{task.task}</td>
+                <td className="px-3 py-2 font-medium text-[#222b36] max-w-xs">
+                  {task.ephemeral ? (
+                    <span className="flex items-center gap-1.5 group">
+                      <span>{task.task}</span>
+                      <button
+                        type="button"
+                        title="Edit task"
+                        onClick={() => setEditingTask(task)}
+                        className="text-gray-300 hover:text-[#0078d4] transition-colors opacity-0 group-hover:opacity-100 focus:opacity-100 text-xs leading-none cursor-pointer"
+                      >
+                        ✏️
+                      </button>
+                    </span>
+                  ) : (
+                    task.task
+                  )}
+                </td>
                 <td className="px-3 py-2 text-gray-500 max-w-xs text-xs">{task.whyGoal}</td>
                 <td className="px-3 py-2 text-gray-500 text-xs whitespace-nowrap">
                   {task.whoHow.link ? (
@@ -311,6 +328,9 @@ export default function CustomOnboardingChecklist() {
       </div>
 
       {showAddModal && <AddTaskModal onClose={() => setShowAddModal(false)} />}
+      {editingTask && (
+        <AddTaskModal taskToEdit={editingTask} onClose={() => setEditingTask(null)} />
+      )}
     </div>
   )
 }

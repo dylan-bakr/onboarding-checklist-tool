@@ -40,6 +40,7 @@ interface AppState {
   updateAssignment: (taskNum: number, timing: string) => void
   toggleTaskIncluded: (taskNum: number, included: boolean) => void
   addTask: (task: Omit<MasterTask, 'taskNum'>) => void
+  updateTask: (taskNum: number, updates: Omit<MasterTask, 'taskNum' | 'ephemeral'>) => void
   exportAndRecord: () => void
   setIsExporting: (v: boolean) => void
 }
@@ -125,6 +126,21 @@ export const useAppStore = create<AppState>()((set, get) => ({
       return {
         tasks: [...state.tasks, newTask],
         assignments: [...state.assignments, newAssignment],
+      }
+    }),
+
+  updateTask: (taskNum, updates) =>
+    set((state) => {
+      const oldTask = state.tasks.find((t) => t.taskNum === taskNum)
+      return {
+        tasks: state.tasks.map((t) => (t.taskNum === taskNum ? { ...t, ...updates } : t)),
+        assignments: state.assignments.map((a) => {
+          if (a.taskNum !== taskNum) return a
+          // Only sync customTiming when the user hasn't overridden it from the old default
+          const timingWasDefault = oldTask ? a.customTiming === oldTask.defaultTiming : true
+          const newTiming = timingWasDefault ? updates.defaultTiming : a.customTiming
+          return { ...a, customTiming: newTiming, included: newTiming !== 'Exclude' }
+        }),
       }
     }),
 

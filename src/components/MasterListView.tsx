@@ -1,7 +1,7 @@
 import { useState, useMemo } from 'react'
 import { useAppStore } from '../store/appStore'
 import { TIMING_OPTIONS } from '../data/masterList'
-import { exportFeedbackCSV } from '../utils/pdfExport'
+import { exportFeedbackCSV, generatePDF } from '../utils/pdfExport'
 import WhoHowLink from './WhoHowLink'
 
 type SortField = 'taskNum' | 'task' | 'defaultTiming'
@@ -42,6 +42,7 @@ const timingColor = (timing: string) => {
 
 export default function MasterListView() {
   const { tasks, feedbackDb } = useAppStore()
+  const [isExportingAll, setIsExportingAll] = useState(false)
   const [sortField, setSortField] = useState<SortField>('taskNum')
   const [sortDir, setSortDir] = useState<SortDir>('asc')
   const [filterText, setFilterText] = useState('')
@@ -49,6 +50,28 @@ export default function MasterListView() {
   const [showFeedback, setShowFeedback] = useState(false)
 
   const masterTasks = useMemo(() => tasks.filter((t) => !t.ephemeral), [tasks])
+
+  const handleExportAll = async () => {
+    setIsExportingAll(true)
+    try {
+      const allAssignments = masterTasks.map((t) => ({
+        taskNum: t.taskNum,
+        customTiming: t.defaultTiming,
+        included: true,
+      }))
+      await generatePDF(masterTasks, allAssignments, {
+        name: 'Master List - All Tasks',
+        startDate: '',
+        supervisor: '',
+        peerGuide: '',
+        selectedPathway: '',
+        title: '',
+        level: '',
+      })
+    } finally {
+      setIsExportingAll(false)
+    }
+  }
 
   const rows = useMemo(() => {
     return masterTasks
@@ -87,15 +110,29 @@ export default function MasterListView() {
         </div>
         <div className="flex gap-2 flex-wrap">
           <button
+            onClick={handleExportAll}
+            disabled={isExportingAll}
+            className="px-4 py-2 text-sm bg-[#0078d4] border border-gray-200 hover:border-[#0078d4] text-white font-medium rounded-lg transition-colors disabled:opacity-60 disabled:cursor-not-allowed flex items-center gap-2 cursor-pointer"
+          >
+            {isExportingAll ? (
+              <>
+                <span className="inline-block w-3.5 h-3.5 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                Exporting…
+              </>
+            ) : (
+              'Export All'
+            )}
+          </button>
+          <button
             onClick={() => setShowFeedback(!showFeedback)}
-            className="px-4 py-2 text-sm bg-white border border-gray-200 hover:border-[#0078d4] text-[#0078d4] font-medium rounded-lg transition-colors"
+            className="px-4 py-2 text-sm bg-white border border-gray-200 hover:border-[#0078d4] text-[#0078d4] font-medium rounded-lg transition-colors cursor-pointer"
           >
             {showFeedback ? 'Hide' : 'View'} Feedback DB ({feedbackDb.length})
           </button>
           {feedbackDb.length > 0 && (
             <button
               onClick={() => exportFeedbackCSV(feedbackDb)}
-              className="px-4 py-2 text-sm bg-white border border-gray-200 hover:border-[#00a562] text-[#00a562] font-medium rounded-lg transition-colors"
+              className="px-4 py-2 text-sm bg-white border border-gray-200 hover:border-[#00a562] text-[#00a562] font-medium rounded-lg transition-colors cursor-pointer"
             >
               Export Feedback CSV
             </button>
