@@ -11,13 +11,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - edit support for custom (ephemeral) tasks: a pencil icon appears on hover next to any task added via "Add Task"
 - 'export all' button to master list view: generates PDF with all tasks included
-- in-app preview modal for bundled assets
-- shared `WhoHowLink` component and `PreviewModal` component extracted from the three view components
+- in-app `PreviewModal` component for bundled assets: introduces new production dependency on [react-markdown](https://remarkjs.github.io/react-markdown/)
 
 ### Changed
 
 - cursor to pointer when hover buttons or other pressables
-- `whoHow` link text for bundled PDF assets now reads "Preview PDF"; for bundled Markdown assets it reads "Preview Doc"
+- `WhoHowLink` from the three view components extracted into shared component
+- `whoHow` link text for bundled assets to read "Preview PDF" or "Preview Document"
 
 ## v0.2.1
 
